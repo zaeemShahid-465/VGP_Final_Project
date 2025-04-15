@@ -294,7 +294,15 @@ namespace Final_Game
                 if (velocity.X > 0)
                     velocity.X = speedCap + 15;
             }
-            
+            // If not dashing set speed default speed cap
+            if (Math.Abs(velocity.Y) >= speedCap + 20 && !dashing)
+            {
+                if (velocity.Y < 0)
+                    velocity.Y = -speedCap + 20;
+                if (velocity.Y > 0)
+                    velocity.Y = speedCap + 20;
+            }
+
         }
 
         // Jumping

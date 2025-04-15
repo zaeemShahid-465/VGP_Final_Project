@@ -34,7 +34,7 @@ namespace Final_Game
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferWidth = config.tileSize * config.numTilesHorizontal;
             graphics.PreferredBackBufferHeight = config.tileSize * config.numTilesVertical;
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
             graphics.ApplyChanges();
             IsMouseVisible = true;
         }
