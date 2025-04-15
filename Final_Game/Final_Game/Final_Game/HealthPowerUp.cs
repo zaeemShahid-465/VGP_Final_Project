@@ -11,17 +11,17 @@ using System.Linq;
 
 namespace Final_Game
 {
-    public class HealthPowerUp : Powerup
+    public class HealthPowerUp : PowerUp
     {
         public HealthPowerUp(int x, int y, Texture2D normalT, Texture2D usedT, Rectangle window) : base(x, y, normalT, usedT, window)
         { }
 
-        public void Update(int timer, Player player, GamePadState pad)
+        public void Update(int timer, Player[] playerArr)
         {
-            base.Update(timer, player, pad);
-            if (base.useTimer == 120)
+            base.Update(timer, playerArr);
+            if (base.useTimer < 300 && base.useTimer % 6 == 0 && used)
             {
-                player.heal();
+                currPlayer.heal();
             }
         }
     }

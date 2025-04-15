@@ -43,7 +43,7 @@ namespace Final_Game
         private Gun pewpew;
 
         // Health
-        private int health;
+        public int health;
         private Rectangle redHealthBar;
         private Rectangle greenHealthBar;
 
@@ -64,9 +64,9 @@ namespace Final_Game
             speed = 5;
             jumpCount = 0;
             jumpTime = 0;
-            health = 100;
+            health = 50;
             redHealthBar = new Rectangle(this.rect.X, this.rect.Y + 90, 50, 10);
-            greenHealthBar = new Rectangle(this.rect.X, this.rect.Y + 90, 50, 10);
+            greenHealthBar = new Rectangle(this.rect.X, this.rect.Y + 90, 25, 10);
             evilBullets = new List<Bullet>();
             angle = 0;
             dashTimer = 180;
@@ -255,6 +255,10 @@ namespace Final_Game
         {
             greenHealthBar.Width -= 10;
             health -= 10;
+            if (health < 0)
+                health = 0;
+            if (greenHealthBar.Width < 0)
+                greenHealthBar.Width = 0;
         }
         // Horizontal Movment
         public void horizontalMove()
@@ -328,15 +332,15 @@ namespace Final_Game
 
         public void heal()
         {
-            greenHealthBar.Width += 50;
-            health += 50;
-            if (greenHealthBar.Width > 100)
-            {
-                greenHealthBar.Width = 100;
-            }
+            greenHealthBar.Width += 1;
+            health += 2;
             if (health > 100)
             {
                 health = 100;
+            }
+            if (greenHealthBar.Width > 50)
+            {
+                greenHealthBar.Width = 50;
             }
         }
 

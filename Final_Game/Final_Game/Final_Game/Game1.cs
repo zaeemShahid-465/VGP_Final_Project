@@ -21,7 +21,7 @@ namespace Final_Game
 
         Level level1;
 
-        Player p1, p2;
+        Player[] playerArr; 
 
         HealthPowerUp medkit;
 
@@ -53,10 +53,11 @@ namespace Final_Game
 
             level1 = new Level(Services, "Level1.txt", "StoneTiles");
 
-            p1 = new Player(this.Content.Load<Texture2D>("StoneTiles/1"), new Vector2(50, 50), 1, screenH, 1);
-            p2 = new Player(this.Content.Load<Texture2D>("StoneTiles/1"), new Vector2(100, 100), 2, screenH, 2);
+            playerArr = new Player[2];
+            playerArr[0] = new Player(this.Content.Load<Texture2D>("StoneTiles/1"), new Vector2(50, 50), 1, screenH, 1);
+            playerArr[1] = new Player(this.Content.Load<Texture2D>("StoneTiles/1"), new Vector2(100, 100), 2, screenH, 2);
 
-            medkit = new HealthPowerUp(100, 1040, this.Content.Load<Texture2D>("MedKit"), this.Content.Load<Texture2D>("UsingMedKit"), new Rectangle(0, 0, screenW, screenH));
+            medkit = new HealthPowerUp(200, 1040, this.Content.Load<Texture2D>("MedKit"), this.Content.Load<Texture2D>("UsingMedKit"), new Rectangle(0, 0, screenW, screenH));
 
             timer = 0;
 
@@ -97,9 +98,12 @@ namespace Final_Game
                 this.Exit();
 
             // TODO: Add your update logic here
-            p1.Update(p2, level1);
-            p2.Update(p1, level1);
-            medkit.Update(timer, p1, GamePad.GetState(PlayerIndex.One));
+            for (int i = 0; i < playerArr.Length; i++)
+            {
+                playerArr[i].Update(playerArr[(i + 1) % 2], level1);
+            }
+
+            medkit.Update(timer, playerArr);
 
             timer++;
 
@@ -117,8 +121,10 @@ namespace Final_Game
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             level1.Draw(spriteBatch);
-            p1.Draw(spriteBatch);
-            p2.Draw(spriteBatch);
+            for (int i = 0; i < playerArr.Length; i++)
+            {
+                playerArr[i].Draw(spriteBatch);
+            }
             medkit.Draw(spriteBatch);
             spriteBatch.End();
 

@@ -11,15 +11,17 @@ using System.Linq;
 
 namespace Final_Game
 {
-    public abstract class Powerup
+    public abstract class PowerUp
     {
         public Rectangle rectangle, window;
         public Texture2D normalT, usedT, currT;
         public Boolean used, pickedUp;
         public Vector2 velocity, pos;
         public int useTimer;
+        public Player currPlayer;
+        public PlayerIndex currPlayerIndex;
 
-        public Powerup(int x, int y, Texture2D normalT, Texture2D usedT, Rectangle window)
+        public PowerUp(int x, int y, Texture2D normalT, Texture2D usedT, Rectangle window)
         {
             this.rectangle = new Rectangle(x, y, 40, 40);
             this.normalT = normalT;
@@ -33,7 +35,7 @@ namespace Final_Game
             useTimer = 0;
         }
 
-        public void Update(int timer, Player player, GamePadState pad)
+        public void Update(int timer, Player[] playerArr)
         {
             if (!pickedUp)
             {
@@ -45,27 +47,42 @@ namespace Final_Game
                 {
                     pos.Y += 0.5f;
                 }
-                if (player.rect.Intersects(rectangle))
+                for (int i = 0; i < playerArr.Length; i++)
                 {
-                    pickedUp = true;
+                    if (playerArr[i].rect.Intersects(rectangle) && !pickedUp)
+                    {
+                        pickedUp = true;
+                        currPlayer = playerArr[i];
+                        switch (i)
+                        {
+                            case 0:
+                                currPlayerIndex = PlayerIndex.One;
+                                break;
+                            case 1:
+                                currPlayerIndex = PlayerIndex.Two;
+                                break;
+                        }
+                    }
                 }
             }
             else
             {
                 if (!used)
                 {
-                    pos.X = player.rect.X + 6;
-                    pos.Y = player.rect.Y + 4;
-                    rectangle.Width = 30;
-                    rectangle.Height = 30;
-                    if (pad.IsButtonDown(Buttons.Y))
+                    pos.X = currPlayer.rect.X + 15;
+                    pos.Y = currPlayer.rect.Y + 8;
+                    rectangle.Width = 25;
+                    rectangle.Height = 25;
+                    if (GamePad.GetState(currPlayerIndex).IsButtonDown(Buttons.Y))
                     {
                         Use();
                     }
                 }
                 else
                 {
-                    if (useTimer == 120)
+                    rectangle.Width = 30;
+                    rectangle.Height = 30;
+                    if (useTimer == 300)
                     {
                         pos.X += velocity.X;
                         pos.Y -= velocity.Y;
@@ -77,8 +94,8 @@ namespace Final_Game
                     else
                     {
                         useTimer++;
-                        pos.X = player.rect.X + 4;
-                        pos.Y = player.rect.Y + 4;
+                        pos.X = currPlayer.rect.X + 4;
+                        pos.Y = currPlayer.rect.Y + 4;
                     }
                 }
             }
