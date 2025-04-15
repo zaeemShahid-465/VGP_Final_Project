@@ -1,0 +1,122 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Final_Game
+{
+    public abstract class Powerup
+    {
+        public Rectangle rectangle, window;
+        public Texture2D normalT, usedT, currT;
+        public Boolean used, pickedUp;
+        public Vector2 velocity, pos;
+        public int useTimer;
+
+        public Powerup(int x, int y, Texture2D normalT, Texture2D usedT, Rectangle window)
+        {
+            this.rectangle = new Rectangle(x, y, 40, 40);
+            this.normalT = normalT;
+            this.usedT = usedT;
+            this.window = window;
+            currT = normalT;
+            used = false;
+            pickedUp = false;
+            velocity = new Vector2(-4, 7);
+            pos = new Vector2(rectangle.X, rectangle.Y);
+            useTimer = 0;
+        }
+
+        public void Update(int timer, Player player, GamePadState pad)
+        {
+            if (!pickedUp)
+            {
+                if (timer % 90 < 45)
+                {
+                    pos.Y -= 0.5f;
+                }
+                else
+                {
+                    pos.Y += 0.5f;
+                }
+                if (player.rect.Intersects(rectangle))
+                {
+                    pickedUp = true;
+                }
+            }
+            else
+            {
+                if (!used)
+                {
+                    pos.X = player.rect.X + 6;
+                    pos.Y = player.rect.Y + 4;
+                    rectangle.Width = 30;
+                    rectangle.Height = 30;
+                    if (pad.IsButtonDown(Buttons.Y))
+                    {
+                        Use();
+                    }
+                }
+                else
+                {
+                    if (useTimer == 120)
+                    {
+                        pos.X += velocity.X;
+                        pos.Y -= velocity.Y;
+                        if (!IsOffScreen())
+                        {
+                            velocity.Y -= 0.4f;
+                        }
+                    }
+                    else
+                    {
+                        useTimer++;
+                        pos.X = player.rect.X + 4;
+                        pos.Y = player.rect.Y + 4;
+                    }
+                }
+            }
+            rectangle.X = (int)pos.X;
+            rectangle.Y = (int)pos.Y;
+        }
+
+        public Boolean IsUsed()
+        {
+            return used;
+        }
+
+        public void Use()
+        {
+            used = true;
+            currT = usedT;
+        }
+
+        public void PickUp()
+        {
+            pickedUp = true;
+        }
+
+        public Boolean IsOffScreen()
+        {
+            if (rectangle.X < -1 * rectangle.Width || rectangle.X > window.Width || rectangle.Y < -1 * rectangle.Height || rectangle.Y > window.Height)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(currT, rectangle, Color.White);
+        }
+    }
+}
