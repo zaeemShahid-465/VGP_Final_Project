@@ -61,15 +61,20 @@ namespace Final_Game
         private Rectangle redHealthBar;
         private Rectangle greenHealthBar;
 
+        //Shield
+        public int shield;
+        private Rectangle blueShieldBar;
+        private Rectangle redShieldBar;
+
         int gameTimer;
 
 
 
         public Player(List<Texture2D> textures, Texture2D basic, Vector2 pos, int playerIndex, float screenHeight, int index)
         {
-            
+
             this.justLanded = false;
-            this.rect = new Rectangle((int)pos.X, (int)pos.Y, 24*3, 18*3);
+            this.rect = new Rectangle((int)pos.X, (int)pos.Y, 24 * 3, 18 * 3);
             this.playerIndex = playerIndex;
             gravity = 1;
             grounded = false;
@@ -79,8 +84,11 @@ namespace Final_Game
             jumpCount = 0;
             jumpTime = 0;
             health = 50;
+            shield = 50;
             redHealthBar = new Rectangle(this.rect.X, this.rect.Y + 90, 50, 10);
             greenHealthBar = new Rectangle(this.rect.X, this.rect.Y + 90, 25, 10);
+            blueShieldBar = new Rectangle(this.rect.X, this.rect.Y + 75, 25, 10);
+            redShieldBar = new Rectangle(this.rect.X, this.rect.Y + 75, 50, 10);
             evilBullets = new List<Bullet>();
             angle = 0;
             dashTimer = 180;
@@ -137,7 +145,7 @@ namespace Final_Game
 
             else
             {
-                
+
                 if (playerDir == PlayerDir.walk_right)
                 {
                     playerDir = PlayerDir.idle_right;
@@ -260,8 +268,8 @@ namespace Final_Game
 
             return new Vector2(depthX, depthY);
         }
-        
-        
+
+
         // Gets a list of all bullets you have fired.
         public List<Bullet> Bullets()
         {
@@ -280,9 +288,9 @@ namespace Final_Game
                     {
                         x.pewpew.bullets.Remove(x.pewpew.bullets[i]);
                         takeDamage();
-                        
+
                     }
-                 
+
                 }
             }
         }
@@ -327,19 +335,24 @@ namespace Final_Game
             //Console.WriteLine(jumpTime);
 
             pewpew.rect.X = this.rect.X + 50;
-            pewpew.rect.Y = this.rect.Y+ 35;
+            pewpew.rect.Y = this.rect.Y + 35;
 
             redHealthBar.X = this.rect.X + 10;
             redHealthBar.Y = this.rect.Y - 20;
             greenHealthBar.X = this.rect.X + 10;
             greenHealthBar.Y = this.rect.Y - 20;
 
+            redShieldBar.X = this.rect.X + 10;
+            redShieldBar.Y = this.rect.Y - 35;
+            blueShieldBar.X = this.rect.X + 10;
+            blueShieldBar.Y = this.rect.Y - 35;
+
             jumpTime++;
             dashTimer++;
             dashTime++;
 
             KeyboardState keyState = Keyboard.GetState();
-            
+
 
         }
 
@@ -418,12 +431,12 @@ namespace Final_Game
                 justLanded = false;
                 jumpCount++;
                 isOnGround = false;
-            }    
-                /*if (jumpCount >= 2)
-                {
-                    grounded = false;
-                }*/
-                   
+            }
+            /*if (jumpCount >= 2)
+            {
+                grounded = false;
+            }*/
+
         }
         // Apply Gravity
         public void Gravity()
@@ -441,6 +454,7 @@ namespace Final_Game
             }
         }
 
+        //Gradually adds health to player until it's 100
         public void heal()
         {
             greenHealthBar.Width += 1;
@@ -452,6 +466,21 @@ namespace Final_Game
             if (greenHealthBar.Width > 50)
             {
                 greenHealthBar.Width = 50;
+            }
+        }
+
+        //Gradually adds shield to player until it's 100
+        public void healShield()
+        {
+            blueShieldBar.Width += 1;
+            shield += 2;
+            if (shield > 100)
+            {
+                shield = 100;
+            }
+            if (blueShieldBar.Width > 50)
+            {
+                blueShieldBar.Width = 50;
             }
         }
 
@@ -468,6 +497,8 @@ namespace Final_Game
             }
             spriteBatch.Draw(basic, redHealthBar, Color.Red);
             spriteBatch.Draw(basic, greenHealthBar, Color.Green);
+            spriteBatch.Draw(basic, redShieldBar, Color.Red);
+            spriteBatch.Draw(basic, blueShieldBar, Color.Blue);
             pewpew.Draw(spriteBatch);
         }
     }
