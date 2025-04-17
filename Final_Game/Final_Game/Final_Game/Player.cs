@@ -105,8 +105,7 @@ namespace Final_Game
             if (index == 1)
             {
                 pIndex = PlayerIndex.One;
-                this.left = textures[0];
-                this.right = textures[1];
+                this.right = textures[0];
                 this.texture = right;
                 this.playerDir = PlayerDir.idle_right;
             }
@@ -137,7 +136,7 @@ namespace Final_Game
                 {
                     playerDir = PlayerDir.walk_right;
                 }
-                if (pad1.ThumbSticks.Left.X < 0)
+                else if (pad1.ThumbSticks.Left.X < 0)
                 {
                     playerDir = PlayerDir.walk_left;
                 }
@@ -155,10 +154,6 @@ namespace Final_Game
                 {
                     playerDir = PlayerDir.idle_left;
                 }
-                else
-                {
-                    playerDir = PlayerDir.idle_right;
-                }
             }
 
             //Console.WriteLine(playerDir);
@@ -168,7 +163,7 @@ namespace Final_Game
         {
             if (animationTimer >= 10)
             {
-                if (playerDir == PlayerDir.walk_right)
+                if (playerDir == PlayerDir.walk_right || playerDir == PlayerDir.walk_left)
                 {
                     source_rect.Y = 37;
                     if (source_rect.X + 24 < 96)
@@ -179,7 +174,7 @@ namespace Final_Game
                     animationTimer = 0;
                 }
 
-                if (playerDir == PlayerDir.idle_right)
+                if (playerDir == PlayerDir.idle_right || playerDir == PlayerDir.idle_left)
                 {
                     source_rect.Y = 6;
                     if (source_rect.X + 24 < 24 * 5)
@@ -188,6 +183,17 @@ namespace Final_Game
                         source_rect.X = 0;
 
                     animationTimer = 0;
+                }
+
+                if (!isOnGround && velocity.Y < 0)
+                {
+                    source_rect.Y = 67;
+                    source_rect.X = 0;
+                }
+                else if (!isOnGround && velocity.Y > 0)
+                {
+                    source_rect.Y = 97;
+                    source_rect.X = 0;
                 }
 
             }
@@ -481,7 +487,14 @@ namespace Final_Game
         // Draw everything the player has
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, rect, source_rect, Color.White);
+            if (playerDir == PlayerDir.walk_left || playerDir == PlayerDir.idle_left)
+            {
+                spriteBatch.Draw(texture, rect, source_rect, Color.White, 0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
+            }
+            else
+            {
+                spriteBatch.Draw(texture, rect, source_rect, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0);
+            }
             spriteBatch.Draw(basic, redHealthBar, Color.Red);
             spriteBatch.Draw(basic, greenHealthBar, Color.Green);
             spriteBatch.Draw(basic, redShieldBar, Color.Red);

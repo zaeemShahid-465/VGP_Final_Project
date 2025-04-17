@@ -10,7 +10,6 @@ Content\StoneTiles\9.xnb
 Content\StoneTiles\0.xnb
 Content\StoneTiles\1.xnb
 Content\Gun Textures\bullet.xnb
-Content\Player Textures\bob_left.xnb
 Content\Player Textures\bob_right.xnb
 Content\Gun Textures\basic.xnb
 Content\Item Textures\MedKit.xnb

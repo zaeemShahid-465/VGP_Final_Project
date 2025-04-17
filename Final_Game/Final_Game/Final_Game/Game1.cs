@@ -60,7 +60,6 @@ namespace Final_Game
 
             // Player Textures
             playerTextures = new List<Texture2D>();
-            playerTextures.Add(this.Content.Load<Texture2D>("Player Textures/bob_left"));
             playerTextures.Add(this.Content.Load<Texture2D>("Player Textures/bob_right"));
 
             level1 = new Level(Services, "Level1.txt", "StoneTiles");
