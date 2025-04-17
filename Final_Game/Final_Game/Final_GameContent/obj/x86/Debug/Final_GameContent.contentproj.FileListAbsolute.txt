@@ -12,3 +12,5 @@ C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final
 C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final_Game\Final_GameContent\obj\x86\Debug\Final_GameContent.contentproj.CoreCompileInputs.cache
 C:\Users\Diego\Desktop\VGP\Final_Game\Final_Game\Final_Game\Final_GameContent\obj\x86\Debug\Final_GameContent.contentproj.AssemblyReference.cache
 C:\Users\Diego\Desktop\VGP\Final_Game\Final_Game\Final_Game\Final_GameContent\obj\x86\Debug\Final_GameContent.contentproj.CoreCompileInputs.cache
+C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Project\Final_Game\Final_Game\Final_GameContent\obj\x86\Debug\Final_GameContent.contentproj.AssemblyReference.cache
+C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Project\Final_Game\Final_Game\Final_GameContent\obj\x86\Debug\Final_GameContent.contentproj.CoreCompileInputs.cache

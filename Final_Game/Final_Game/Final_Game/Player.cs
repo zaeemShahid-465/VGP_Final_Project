@@ -61,6 +61,11 @@ namespace Final_Game
         private Rectangle redHealthBar;
         private Rectangle greenHealthBar;
 
+        //Shield
+        public int shield;
+        private Rectangle blueShieldBar;
+        private Rectangle redShieldBar;
+
         int gameTimer;
 
 
@@ -79,8 +84,11 @@ namespace Final_Game
             jumpCount = 0;
             jumpTime = 0;
             health = 50;
+            shield = 50;
             redHealthBar = new Rectangle(this.rect.X, this.rect.Y + 90, 50, 10);
             greenHealthBar = new Rectangle(this.rect.X, this.rect.Y + 90, 25, 10);
+            blueShieldBar = new Rectangle(this.rect.X, this.rect.Y + 75, 25, 10);
+            redShieldBar = new Rectangle(this.rect.X, this.rect.Y + 75, 50, 10);
             evilBullets = new List<Bullet>();
             angle = 0;
             dashTimer = 180;
@@ -328,6 +336,11 @@ namespace Final_Game
             greenHealthBar.X = this.rect.X + 10;
             greenHealthBar.Y = this.rect.Y - 20;
 
+            redShieldBar.X = this.rect.X + 10;
+            redShieldBar.Y = this.rect.Y - 35;
+            blueShieldBar.X = this.rect.X + 10;
+            blueShieldBar.Y = this.rect.Y - 35;
+
             jumpTime++;
             dashTimer++;
             dashTime++;
@@ -435,6 +448,7 @@ namespace Final_Game
             }
         }
 
+        //Gradually adds health to player until it's 100
         public void heal()
         {
             greenHealthBar.Width += 1;
@@ -449,12 +463,29 @@ namespace Final_Game
             }
         }
 
+        //Gradually adds shield to player until it's 100
+        public void healShield()
+        {
+            blueShieldBar.Width += 1;
+            shield += 2;
+            if (shield > 100)
+            {
+                shield = 100;
+            }
+            if (blueShieldBar.Width > 50)
+            {
+                blueShieldBar.Width = 50;
+            }
+        }
+
         // Draw everything the player has
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, rect, source_rect, Color.White);
             spriteBatch.Draw(basic, redHealthBar, Color.Red);
             spriteBatch.Draw(basic, greenHealthBar, Color.Green);
+            spriteBatch.Draw(basic, redShieldBar, Color.Red);
+            spriteBatch.Draw(basic, blueShieldBar, Color.Blue);
             pewpew.Draw(spriteBatch);
         }
     }
