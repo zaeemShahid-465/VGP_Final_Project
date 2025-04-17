@@ -14,17 +14,45 @@ namespace Final_Game
 {
     public class Level : IDisposable
     {
+        Random rand;
         ContentManager content;
 
         public Tile[,] tiles;
         int[,] intTiles;
         string levelID, platformSelector;
 
-        public Level(IServiceProvider _content, string levelID, string platformSelector)
+        public List<Gun> weapons;
+        public int weaponSpawnTimer;
+        public int weaponBobTimer;
+
+        public Player[] playerArr;
+
+        public Level(IServiceProvider _content, string levelID, string platformSelector, Player[] players)
         {
             content = new ContentManager(_content, "Content");
             intTiles = new int[config.numTilesVertical, config.numTilesHorizontal];
             LoadMap(levelID, platformSelector);
+            weapons = new List<Gun>();
+            rand = new Random();
+            playerArr = players;
+        }
+
+        public void Update()
+        {
+            weaponSpawnTimer++;
+            weaponBobTimer++;
+
+            foreach (Gun weapon in weapons)
+                weapon.Update(weaponBobTimer, playerArr);
+
+            foreach (Player p in playerArr)
+            {
+                if (p.pewpew != null)
+                    p.pewpew.Shoot();
+            }
+
+            if (weaponSpawnTimer % 200 == 0)
+                weapons.Add(new Rifle(this.content.Load<Texture2D>("Gun Textures/basic"), this.content.Load<Texture2D>("Gun Textures/bullet"), 20, new Rectangle(rand.Next(0, 500), 500, 15, 10)));
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -33,6 +61,11 @@ namespace Final_Game
             {
                 if (tile != null)
                     spriteBatch.Draw(tile.tex, tile.rec, Color.White);
+            }
+
+            foreach (Gun weapon in weapons)
+            {
+                weapon.Draw(spriteBatch);
             }
         }
 

@@ -44,16 +44,15 @@ namespace Final_Game
         private int jumpTime;
         private bool dashing;
         private int speedCap;
-        Vector2 velocity;
+        public Vector2 velocity;
         private bool justLanded;
-        private int jumpStrength = 20;
+        private int jumpStrength = 25;
         public bool isOnGround = true;
         private int animationTimer;
 
         // Guns
-        private double angle;
+        public double angle;
         private List<Bullet> evilBullets;
-        private Gun pewpew;
         private Texture2D basic;
 
         // Health
@@ -62,6 +61,10 @@ namespace Final_Game
         private Rectangle greenHealthBar;
 
         int gameTimer;
+
+        int randTimer;
+
+        public Gun pewpew;
 
 
 
@@ -116,7 +119,6 @@ namespace Final_Game
                 pIndex = PlayerIndex.Four;
             }
 
-            pewpew = new Gun(pos, basic, basic, 20, pIndex);
         }
 
         public void decideTexture()
@@ -256,14 +258,14 @@ namespace Final_Game
         }
         
         
-        // Gets a list of all bullets you have fired.
+/*        // Gets a list of all bullets you have fired.
         public List<Bullet> Bullets()
         {
-            return pewpew.bullets;
-        }
+
+        }*/
 
         // Takes in Bullets() of other players to check if you have taken damage
-        public void getEnemyBullets(Player x)
+/*        public void getEnemyBullets(Player x)
         {
             List<Bullet> temp = x.Bullets();
             if (temp.Count != 0)
@@ -279,12 +281,13 @@ namespace Final_Game
                  
                 }
             }
-        }
+        }*/
 
         //Update method where other methods are called.
         public void Update(Player x, Level l)
         {
             gameTimer++;
+            randTimer++;
 
             GamePadState pad1 = GamePad.GetState(pIndex);
             if (pad1.ThumbSticks.Right.Length() != 0)
@@ -292,7 +295,7 @@ namespace Final_Game
                 angle = Math.Atan2(pad1.ThumbSticks.Right.X, pad1.ThumbSticks.Right.Y) - Math.PI / 2;
             }
 
-            getEnemyBullets(x);
+/*            getEnemyBullets(x);*/
             horizontalMove();
             Jump();
 
@@ -304,8 +307,6 @@ namespace Final_Game
             ChangeTexture();
 
             Gravity();
-
-            pewpew.Update(velocity, angle);
 
             if (pad1.IsButtonDown(Buttons.X) && dashTimer >= 180 && !isOnGround)
             {
@@ -319,9 +320,6 @@ namespace Final_Game
             capSpeed();
 
             //Console.WriteLine(jumpTime);
-
-            pewpew.rect.X = this.rect.X + 50;
-            pewpew.rect.Y = this.rect.Y+ 35;
 
             redHealthBar.X = this.rect.X + 10;
             redHealthBar.Y = this.rect.Y - 20;
@@ -455,7 +453,6 @@ namespace Final_Game
             spriteBatch.Draw(texture, rect, source_rect, Color.White);
             spriteBatch.Draw(basic, redHealthBar, Color.Red);
             spriteBatch.Draw(basic, greenHealthBar, Color.Green);
-            pewpew.Draw(spriteBatch);
         }
     }
 }

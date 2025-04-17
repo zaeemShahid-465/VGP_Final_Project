@@ -64,11 +64,12 @@ namespace Final_Game
             playerTextures.Add(this.Content.Load<Texture2D>("Player Textures/bob_left"));
             playerTextures.Add(this.Content.Load<Texture2D>("Player Textures/bob_right"));
 
-            level1 = new Level(Services, "Level1.txt", "StoneTiles");
             bullet = this.Content.Load<Texture2D>("Gun Textures/basic");
             playerArr = new Player[2];
             playerArr[0] = new Player(playerTextures, bullet, new Vector2(50, 50), 1, screenH, 1);
             playerArr[1] = new Player(playerTextures, bullet, new Vector2(100, 100), 2, screenH, 2);
+
+            level1 = new Level(Services, "Level1.txt", "StoneTiles", playerArr);
 
             medkit = new HealthPowerUp(200, 1040, this.Content.Load<Texture2D>("MedKit"), this.Content.Load<Texture2D>("UsingMedKit"), new Rectangle(0, 0, screenW, screenH));
 
@@ -118,6 +119,7 @@ namespace Final_Game
             }
 
             medkit.Update(timer, playerArr);
+            level1.Update();
 
             timer++;
 

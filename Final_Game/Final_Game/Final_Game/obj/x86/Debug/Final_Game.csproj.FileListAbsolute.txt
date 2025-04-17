@@ -220,3 +220,7 @@ C:\Users\Diego\Desktop\VGP\Final_Game\Final_Game\Final_Game\Final_Game\bin\x86\D
 C:\Users\Diego\Desktop\VGP\Final_Game\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Player Textures\bob_left.xnb
 C:\Users\Diego\Desktop\VGP\Final_Game\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Player Textures\bob_right.xnb
 C:\Users\Diego\Desktop\VGP\Final_Game\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Gun Textures\basic.xnb
+C:\Users\252486\Desktop\VGP_FinalGameRepo\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Gun Textures\bullet.xnb
+C:\Users\252486\Desktop\VGP_FinalGameRepo\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Player Textures\bob_left.xnb
+C:\Users\252486\Desktop\VGP_FinalGameRepo\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Player Textures\bob_right.xnb
+C:\Users\252486\Desktop\VGP_FinalGameRepo\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Gun Textures\basic.xnb

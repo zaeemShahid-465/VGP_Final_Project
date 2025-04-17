@@ -11,37 +11,39 @@ using System.Linq;
 
 namespace Final_Game
 {
-    public class Gun
+    public abstract class Gun
     {
         
         
         // Gun Infro
         public Rectangle rect;
         private Texture2D texture;
-
-        
+        public bool pickedUp;
         public List<Bullet> bullets;
+        public Vector2 pos;
 
         // Shooting
-        private double angle;
-        private int bulletTimer;
-        private int ammo;
+        public double angle;
+        public int bulletTimer;
+        public int ammo;
         private int capacity;
         private int reloadTimer;
         public Texture2D basic;
 
         // Info about guns parent player
-        private Vector2 playerVel;
+        public Vector2 playerVel;
         private Vector2 playerPos;
-        PlayerIndex pIndex;
+        public PlayerIndex pIndex;
+        public Player currPlayer;
 
 
 
 
-        public Gun(Vector2 PlayerPos, Texture2D Texture, Texture2D basic, int ammo, PlayerIndex index)
+        public Gun(Texture2D Texture, Texture2D basic, int ammo, Rectangle rec)
         {
-            playerPos = PlayerPos;
-            rect = new Rectangle((int)playerPos.X, (int)playerPos.Y, 15, 10);
+            this.rect = rec;
+            /*rect = new Rectangle((int)playerPos.X, (int)playerPos.Y, 15, 10);*/
+            pos = new Vector2(rect.X, rect.Y);
             texture = Texture;
             angle = 0;
             bullets = new List<Bullet>();
@@ -50,36 +52,67 @@ namespace Final_Game
             this.ammo = ammo;
             this.capacity = ammo;
             reloadTimer = 0;
-            pIndex = index;
             this.basic = basic;
+            pickedUp = false;
         }
 
-        public void Update(Vector2 playerVel, double angle)
+        public void AssignOwner(Player p)
         {
-            this.playerVel = playerVel;
+            this.pIndex = p.pIndex;
+            this.playerPos = new Vector2(p.rect.X, p.rect.Y);
+            currPlayer = p;
+            this.playerVel = p.velocity;
+            this.angle = p.angle;
+        }
+
+        public void Update(int bobbingTimer, Player[] playerArr)
+        {
+            Console.WriteLine("Gun Picked up? " + pickedUp);
+            // Moving item up and down if not picked up
+            if (!pickedUp)
+            {
+                if (bobbingTimer % 90 < 45)
+                    pos.Y -= 0.5f;
+                else
+                    pos.Y += 0.5f;
+
+                // Assigning gun owner 
+                for (int i = 0; i < playerArr.Length; i++)
+                {
+                    if (playerArr[i].rect.Intersects(rect) && !pickedUp)
+                    {
+                        pickedUp = true;
+                        AssignOwner(playerArr[i]);
+                        playerArr[i].pewpew = this;
+                    }
+                }
+            }
+            else
+            {
+                this.playerVel = currPlayer.velocity;
+                this.angle = currPlayer.angle;
+                pos.X = currPlayer.rect.X + 50;
+                pos.Y = currPlayer.rect.Y + 35;
+            }
+
+            rect.X = (int)pos.X;
+            rect.Y = (int)pos.Y;
+
+            
             bulletTimer++;
             GamePadState pad1 = GamePad.GetState(pIndex);
-            this.angle = angle;
+            
 
             for (int i = 0; i < bullets.Count(); i++)
             {
                 bullets[i].Update();
             }
             //Console.WriteLine(bullets.Count());
-            Shoot();
             Reload();
         }
 
-        public void Shoot()
-        {
-            GamePadState pad1 = GamePad.GetState(pIndex);
-            if (pad1.IsButtonDown(Buttons.RightTrigger) && bulletTimer > 5 && ammo > 0)
-            {
-                bulletTimer = 0;
-                bullets.Add(new Bullet(new Vector2((float)Math.Cos(angle) * 50 + playerVel.X/3, (float)Math.Sin(angle) * 20 + playerVel.Y/3), new Rectangle(rect.X, rect.Y, 5, 5), basic, pIndex));
-                ammo--;
-            }
-        }
+        public abstract void Shoot();
+        
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(basic, rect, new Rectangle(0, 0, 20, 20), Color.Black, (float)angle, new Vector2(0, 10), SpriteEffects.None, 0f);
