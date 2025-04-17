@@ -99,12 +99,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MedKit.png">
+    <Compile Include="Item Textures\MedKit.png">
       <Name>MedKit</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="UsingMedKit.png">
+    <Compile Include="Item Textures\UsingMedKit.png">
       <Name>UsingMedKit</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -134,6 +134,18 @@
   <ItemGroup>
     <Compile Include="Gun Textures\basic.jpg">
       <Name>basic</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Item Textures\ShieldPotion.png">
+      <Name>ShieldPotion</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Item Textures\UsingShieldPotion.png">
+      <Name>UsingShieldPotion</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

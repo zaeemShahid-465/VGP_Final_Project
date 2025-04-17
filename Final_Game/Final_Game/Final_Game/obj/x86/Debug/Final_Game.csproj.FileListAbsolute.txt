@@ -231,8 +231,6 @@ C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Pro
 C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\StoneTiles\9.xnb
 C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\StoneTiles\0.xnb
 C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\StoneTiles\1.xnb
-C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\MedKit.xnb
-C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\UsingMedKit.xnb
 C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Gun Textures\bullet.xnb
 C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Player Textures\bob_left.xnb
 C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Player Textures\bob_right.xnb
@@ -256,3 +254,7 @@ C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Pro
 C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Project\Final_Game\Final_Game\Final_Game\obj\x86\Debug\Final_Game.csproj.CopyComplete
 C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Project\Final_Game\Final_Game\Final_Game\obj\x86\Debug\Final_Game.exe
 C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Project\Final_Game\Final_Game\Final_Game\obj\x86\Debug\Final_Game.pdb
+C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Item Textures\MedKit.xnb
+C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Item Textures\UsingMedKit.xnb
+C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Item Textures\ShieldPotion.xnb
+C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Item Textures\UsingShieldPotion.xnb

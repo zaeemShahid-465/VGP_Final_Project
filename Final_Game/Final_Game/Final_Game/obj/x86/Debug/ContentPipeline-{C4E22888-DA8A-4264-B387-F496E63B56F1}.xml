@@ -101,24 +101,6 @@
       <Time>2025-04-17T10:59:59.4087898-05:00</Time>
     </Item>
     <Item>
-      <Source>MedKit.png</Source>
-      <Name>MedKit</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\MedKit.xnb</Output>
-      <Time>2025-04-17T11:36:23.479022-05:00</Time>
-    </Item>
-    <Item>
-      <Source>UsingMedKit.png</Source>
-      <Name>UsingMedKit</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\UsingMedKit.xnb</Output>
-      <Time>2025-04-17T11:36:23.479022-05:00</Time>
-    </Item>
-    <Item>
       <Source>Gun Textures\bullet.jpg</Source>
       <Name>Gun Textures\bullet</Name>
       <Importer>TextureImporter</Importer>
@@ -153,6 +135,42 @@
       <Options>None</Options>
       <Output>C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Gun Textures\basic.xnb</Output>
       <Time>2025-04-17T10:59:59.3987459-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Item Textures\MedKit.png</Source>
+      <Name>Item Textures\MedKit</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Item Textures\MedKit.xnb</Output>
+      <Time>2025-04-17T11:36:23.479022-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Item Textures\UsingMedKit.png</Source>
+      <Name>Item Textures\UsingMedKit</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Item Textures\UsingMedKit.xnb</Output>
+      <Time>2025-04-17T11:36:23.479022-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Item Textures\ShieldPotion.png</Source>
+      <Name>Item Textures\ShieldPotion</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Item Textures\ShieldPotion.xnb</Output>
+      <Time>2025-04-17T11:51:24.8497738-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Item Textures\UsingShieldPotion.png</Source>
+      <Name>Item Textures\UsingShieldPotion</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\285921\Desktop\Dimash Baimakhan's Work\Final Game Project\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Item Textures\UsingShieldPotion.xnb</Output>
+      <Time>2025-04-17T11:51:24.8467729-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
