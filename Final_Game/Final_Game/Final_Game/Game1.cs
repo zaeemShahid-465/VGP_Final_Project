@@ -27,12 +27,13 @@ namespace Final_Game
 
         HealthPowerUp medkit;
 
-        ShieldPowerUp shield;
-
         int screenW, screenH, timer;
 
         // Textures
         public Texture2D bullet;
+
+        
+            
 
 
         public Game1()
@@ -69,9 +70,7 @@ namespace Final_Game
             playerArr[0] = new Player(playerTextures, bullet, new Vector2(50, 50), 1, screenH, 1);
             playerArr[1] = new Player(playerTextures, bullet, new Vector2(100, 100), 2, screenH, 2);
 
-            medkit = new HealthPowerUp(200, 1040, this.Content.Load<Texture2D>("Item Textures/MedKit"), this.Content.Load<Texture2D>("Item Textures/UsingMedKit"), new Rectangle(0, 0, screenW, screenH));
-
-            shield = new ShieldPowerUp(400, 1040, this.Content.Load<Texture2D>("Item Textures/ShieldPotion"), this.Content.Load<Texture2D>("Item Textures/UsingShieldPotion"), new Rectangle(0, 0, screenW, screenH));
+            medkit = new HealthPowerUp(200, 1040, this.Content.Load<Texture2D>("MedKit"), this.Content.Load<Texture2D>("UsingMedKit"), new Rectangle(0, 0, screenW, screenH));
 
             timer = 0;
 
@@ -120,9 +119,10 @@ namespace Final_Game
 
             medkit.Update(timer, playerArr);
 
-            shield.Update(timer, playerArr);
-
             timer++;
+
+            
+
 
             base.Update(gameTime);
         }
@@ -150,7 +150,6 @@ namespace Final_Game
                 playerArr[i].Draw(spriteBatch);
             }
             medkit.Draw(spriteBatch);
-            shield.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);

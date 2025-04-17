@@ -23,7 +23,7 @@ namespace Final_Game
 
         public PowerUp(int x, int y, Texture2D normalT, Texture2D usedT, Rectangle window)
         {
-            this.rectangle = new Rectangle(x, y, 30, 30);
+            this.rectangle = new Rectangle(x, y, 40, 30);
             this.normalT = normalT;
             this.usedT = usedT;
             this.window = window;
@@ -69,8 +69,8 @@ namespace Final_Game
             {
                 if (!used)
                 {
-                    pos.X = currPlayer.rect.X + 30;
-                    pos.Y = currPlayer.rect.Y + 26;
+                    pos.X = currPlayer.rect.X + 15;
+                    pos.Y = currPlayer.rect.Y + 20;
                     rectangle.Width = 25;
                     rectangle.Height = 25;
                     if (GamePad.GetState(currPlayerIndex).IsButtonDown(Buttons.Y))
@@ -80,8 +80,8 @@ namespace Final_Game
                 }
                 else
                 {
-                    rectangle.Width = 25;
-                    rectangle.Height = 25;
+                    rectangle.Width = 30;
+                    rectangle.Height = 30;
                     if (useTimer == 300)
                     {
                         pos.X += velocity.X;
@@ -94,8 +94,8 @@ namespace Final_Game
                     else
                     {
                         useTimer++;
-                        pos.X = currPlayer.rect.X + 28;
-                        pos.Y = currPlayer.rect.Y + 24;
+                        pos.X = currPlayer.rect.X + 4;
+                        pos.Y = currPlayer.rect.Y + 4;
                     }
                 }
             }
