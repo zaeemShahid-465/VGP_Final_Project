@@ -118,13 +118,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Player Textures\bob_left.png">
-      <Name>bob_left</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Player Textures\bob_right.png">
       <Name>bob_right</Name>
       <Importer>TextureImporter</Importer>

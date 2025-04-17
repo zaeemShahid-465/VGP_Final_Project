@@ -12,7 +12,6 @@ Content\StoneTiles\1.xnb
 Content\MedKit.xnb
 Content\UsingMedKit.xnb
 Content\Gun Textures\bullet.xnb
-Content\Player Textures\bob_left.xnb
 Content\Player Textures\bob_right.xnb
 Content\Gun Textures\basic.xnb
 Content\LevelData\Level1.txt

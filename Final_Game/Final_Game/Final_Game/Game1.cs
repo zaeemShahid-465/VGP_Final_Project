@@ -42,7 +42,7 @@ namespace Final_Game
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferWidth = config.tileSize * config.numTilesHorizontal;
             graphics.PreferredBackBufferHeight = config.tileSize * config.numTilesVertical;
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
             graphics.ApplyChanges();
             IsMouseVisible = true;
         }
@@ -61,7 +61,6 @@ namespace Final_Game
 
             // Player Textures
             playerTextures = new List<Texture2D>();
-            playerTextures.Add(this.Content.Load<Texture2D>("Player Textures/bob_left"));
             playerTextures.Add(this.Content.Load<Texture2D>("Player Textures/bob_right"));
 
             level1 = new Level(Services, "Level1.txt", "StoneTiles");
