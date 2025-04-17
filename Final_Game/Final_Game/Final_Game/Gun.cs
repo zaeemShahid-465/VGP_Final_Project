@@ -28,6 +28,7 @@ namespace Final_Game
         private int ammo;
         private int capacity;
         private int reloadTimer;
+        public Texture2D basic;
 
         // Info about guns parent player
         private Vector2 playerVel;
@@ -37,7 +38,7 @@ namespace Final_Game
 
 
 
-        public Gun(Vector2 PlayerPos, Texture2D Texture, int ammo, PlayerIndex index)
+        public Gun(Vector2 PlayerPos, Texture2D Texture, Texture2D basic, int ammo, PlayerIndex index)
         {
             playerPos = PlayerPos;
             rect = new Rectangle((int)playerPos.X, (int)playerPos.Y, 15, 10);
@@ -50,6 +51,7 @@ namespace Final_Game
             this.capacity = ammo;
             reloadTimer = 0;
             pIndex = index;
+            this.basic = basic;
         }
 
         public void Update(Vector2 playerVel, double angle)
@@ -74,13 +76,13 @@ namespace Final_Game
             if (pad1.IsButtonDown(Buttons.RightTrigger) && bulletTimer > 5 && ammo > 0)
             {
                 bulletTimer = 0;
-                bullets.Add(new Bullet(new Vector2((float)Math.Cos(angle) * 50 + playerVel.X/3, (float)Math.Sin(angle) * 20 + playerVel.Y/3), new Rectangle(rect.X, rect.Y, 5, 5), texture, pIndex));
+                bullets.Add(new Bullet(new Vector2((float)Math.Cos(angle) * 50 + playerVel.X/3, (float)Math.Sin(angle) * 20 + playerVel.Y/3), new Rectangle(rect.X, rect.Y, 5, 5), basic, pIndex));
                 ammo--;
             }
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, rect, new Rectangle(0, 0, 20, 20), Color.Black, (float)angle, new Vector2(0, 10), SpriteEffects.None, 0f);
+            spriteBatch.Draw(basic, rect, new Rectangle(0, 0, 20, 20), Color.Black, (float)angle, new Vector2(0, 10), SpriteEffects.None, 0f);
             for (int i = 0; i < bullets.Count(); i++)
             {
                 bullets[i].Draw(spriteBatch);

@@ -21,11 +21,19 @@ namespace Final_Game
 
         Level level1;
 
-        Player[] playerArr; 
+        Player[] playerArr;
+
+        List<Texture2D> playerTextures;
 
         HealthPowerUp medkit;
 
         int screenW, screenH, timer;
+
+        // Textures
+        public Texture2D bullet;
+
+        
+            
 
 
         public Game1()
@@ -51,11 +59,16 @@ namespace Final_Game
             screenW = config.tileSize * config.numTilesHorizontal;
             screenH = config.tileSize * config.numTilesVertical;
 
-            level1 = new Level(Services, "Level1.txt", "StoneTiles");
+            // Player Textures
+            playerTextures = new List<Texture2D>();
+            playerTextures.Add(this.Content.Load<Texture2D>("Player Textures/bob_left"));
+            playerTextures.Add(this.Content.Load<Texture2D>("Player Textures/bob_right"));
 
+            level1 = new Level(Services, "Level1.txt", "StoneTiles");
+            bullet = this.Content.Load<Texture2D>("Gun Textures/basic");
             playerArr = new Player[2];
-            playerArr[0] = new Player(this.Content.Load<Texture2D>("StoneTiles/1"), new Vector2(50, 50), 1, screenH, 1);
-            playerArr[1] = new Player(this.Content.Load<Texture2D>("StoneTiles/1"), new Vector2(100, 100), 2, screenH, 2);
+            playerArr[0] = new Player(playerTextures, bullet, new Vector2(50, 50), 1, screenH, 1);
+            playerArr[1] = new Player(playerTextures, bullet, new Vector2(100, 100), 2, screenH, 2);
 
             medkit = new HealthPowerUp(200, 1040, this.Content.Load<Texture2D>("MedKit"), this.Content.Load<Texture2D>("UsingMedKit"), new Rectangle(0, 0, screenW, screenH));
 
@@ -74,6 +87,7 @@ namespace Final_Game
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            
         }
 
         /// <summary>
@@ -107,8 +121,18 @@ namespace Final_Game
 
             timer++;
 
+            
+
+
             base.Update(gameTime);
         }
+
+        // Getters
+        public Texture2D getBulletTexture()
+        {
+            return bullet;
+        }
+
 
         /// <summary>
         /// This is called when the game should draw itself.

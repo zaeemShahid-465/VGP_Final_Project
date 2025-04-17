@@ -14,16 +14,28 @@ namespace Final_Game
     public class Player
     {
         // Basic Info
-        private Texture2D texture;
+        public Texture2D texture;
+        public Texture2D left;
+        public Texture2D right;
         public Rectangle rect;
+        public Rectangle source_rect;
+
         private float screenHeight;
+        enum PlayerDir
+        {
+            idle_right,
+            idle_left,
+            walk_right,
+            walk_left,
+        }
+        PlayerDir playerDir;
 
         //Constants
         private float gravity;
         private int playerIndex;
         public PlayerIndex pIndex;
 
-        // Moveemnt
+        // Movement
         public bool grounded;
         private int dashTimer;
         private int dashTime;
@@ -36,11 +48,13 @@ namespace Final_Game
         private bool justLanded;
         private int jumpStrength = 20;
         public bool isOnGround = true;
+        private int animationTimer;
 
         // Guns
         private double angle;
         private List<Bullet> evilBullets;
         private Gun pewpew;
+        private Texture2D basic;
 
         // Health
         public int health;
@@ -51,11 +65,11 @@ namespace Final_Game
 
 
 
-        public Player(Texture2D texture, Vector2 pos, int playerIndex, float screenHeight, int index)
+        public Player(List<Texture2D> textures, Texture2D basic, Vector2 pos, int playerIndex, float screenHeight, int index)
         {
+            
             this.justLanded = false;
-            this.rect = new Rectangle((int)pos.X, (int)pos.Y, 30, 30);
-            this.texture = texture;
+            this.rect = new Rectangle((int)pos.X, (int)pos.Y, 24*3, 18*3);
             this.playerIndex = playerIndex;
             gravity = 1;
             grounded = false;
@@ -72,15 +86,26 @@ namespace Final_Game
             dashTimer = 180;
             speedCap = 10;
             dashTime = 0;
-            
+            this.basic = basic;
+
+            animationTimer = 0;
+
+            this.source_rect = new Rectangle(0, 6, 24, 18);
+
+
             // Sets Controller Index
             if (index == 1)
             {
                 pIndex = PlayerIndex.One;
+                this.left = textures[0];
+                this.right = textures[1];
+                this.texture = right;
+                this.playerDir = PlayerDir.idle_right;
             }
             if (index == 2)
             {
                 pIndex = PlayerIndex.Two;
+                this.texture = textures[0];
             }
             if (index == 3)
             {
@@ -91,7 +116,74 @@ namespace Final_Game
                 pIndex = PlayerIndex.Four;
             }
 
-            pewpew = new Gun(pos, texture, 20, pIndex);
+            pewpew = new Gun(pos, basic, basic, 20, pIndex);
+        }
+
+        public void decideTexture()
+        {
+            GamePadState pad1 = GamePad.GetState(pIndex);
+            if (pad1.ThumbSticks.Left.Length() != 0)
+            {
+
+                if (pad1.ThumbSticks.Left.X > 0)
+                {
+                    playerDir = PlayerDir.walk_right;
+                }
+                if (pad1.ThumbSticks.Left.X < 0)
+                {
+                    playerDir = PlayerDir.walk_left;
+                }
+
+            }
+
+            else
+            {
+                
+                if (playerDir == PlayerDir.walk_right)
+                {
+                    playerDir = PlayerDir.idle_right;
+                }
+                else if (playerDir == PlayerDir.walk_left)
+                {
+                    playerDir = PlayerDir.idle_left;
+                }
+                else
+                {
+                    playerDir = PlayerDir.idle_right;
+                }
+            }
+
+            //Console.WriteLine(playerDir);
+        }
+
+        public void ChangeTexture()
+        {
+            if (animationTimer >= 10)
+            {
+                if (playerDir == PlayerDir.walk_right)
+                {
+                    source_rect.Y = 37;
+                    if (source_rect.X + 24 < 96)
+                        source_rect.X += 24;
+                    else
+                        source_rect.X = 0;
+
+                    animationTimer = 0;
+                }
+
+                if (playerDir == PlayerDir.idle_right)
+                {
+                    source_rect.Y = 6;
+                    if (source_rect.X + 24 < 24 * 5)
+                        source_rect.X += 24;
+                    else
+                        source_rect.X = 0;
+
+                    animationTimer = 0;
+                }
+
+            }
+            animationTimer++;
         }
 
         public void HandleCollisions(Level level)
@@ -208,6 +300,8 @@ namespace Final_Game
             this.rect.Y += (int)velocity.Y;
 
             HandleCollisions(l);
+            decideTexture();
+            ChangeTexture();
 
             Gravity();
 
@@ -226,17 +320,20 @@ namespace Final_Game
 
             //Console.WriteLine(jumpTime);
 
-            pewpew.rect.X = this.rect.X + 25;
-            pewpew.rect.Y = this.rect.Y+ 25;
+            pewpew.rect.X = this.rect.X + 50;
+            pewpew.rect.Y = this.rect.Y+ 35;
 
-            redHealthBar.X = this.rect.X - 10;
+            redHealthBar.X = this.rect.X + 10;
             redHealthBar.Y = this.rect.Y - 20;
-            greenHealthBar.X = this.rect.X - 10;
+            greenHealthBar.X = this.rect.X + 10;
             greenHealthBar.Y = this.rect.Y - 20;
 
             jumpTime++;
             dashTimer++;
             dashTime++;
+
+            KeyboardState keyState = Keyboard.GetState();
+            
 
         }
 
@@ -355,9 +452,9 @@ namespace Final_Game
         // Draw everything the player has
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, rect, Color.White);
-            spriteBatch.Draw(texture, redHealthBar, Color.Red);
-            spriteBatch.Draw(texture, greenHealthBar, Color.Green);
+            spriteBatch.Draw(texture, rect, source_rect, Color.White);
+            spriteBatch.Draw(basic, redHealthBar, Color.Red);
+            spriteBatch.Draw(basic, greenHealthBar, Color.Green);
             pewpew.Draw(spriteBatch);
         }
     }

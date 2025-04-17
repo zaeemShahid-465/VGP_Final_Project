@@ -23,7 +23,7 @@ namespace Final_Game
 
         public PowerUp(int x, int y, Texture2D normalT, Texture2D usedT, Rectangle window)
         {
-            this.rectangle = new Rectangle(x, y, 40, 40);
+            this.rectangle = new Rectangle(x, y, 40, 30);
             this.normalT = normalT;
             this.usedT = usedT;
             this.window = window;
@@ -70,7 +70,7 @@ namespace Final_Game
                 if (!used)
                 {
                     pos.X = currPlayer.rect.X + 15;
-                    pos.Y = currPlayer.rect.Y + 8;
+                    pos.Y = currPlayer.rect.Y + 20;
                     rectangle.Width = 25;
                     rectangle.Height = 25;
                     if (GamePad.GetState(currPlayerIndex).IsButtonDown(Buttons.Y))

@@ -216,3 +216,7 @@ C:\Users\Diego\Desktop\VGP\Final_Game\Final_Game\Final_Game\Final_Game\obj\x86\D
 C:\Users\Diego\Desktop\VGP\Final_Game\Final_Game\Final_Game\Final_Game\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Diego\Desktop\VGP\Final_Game\Final_Game\Final_Game\Final_Game\obj\x86\Debug\Final_Game.csproj.CoreCompileInputs.cache
 C:\Users\Diego\Desktop\VGP\Final_Game\Final_Game\Final_Game\Final_Game\obj\x86\Debug\Final_Game.csproj.CopyComplete
+C:\Users\Diego\Desktop\VGP\Final_Game\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Gun Textures\bullet.xnb
+C:\Users\Diego\Desktop\VGP\Final_Game\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Player Textures\bob_left.xnb
+C:\Users\Diego\Desktop\VGP\Final_Game\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Player Textures\bob_right.xnb
+C:\Users\Diego\Desktop\VGP\Final_Game\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Gun Textures\basic.xnb
