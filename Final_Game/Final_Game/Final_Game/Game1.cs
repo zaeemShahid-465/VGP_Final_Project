@@ -27,13 +27,12 @@ namespace Final_Game
 
         HealthPowerUp medkit;
 
+        ShieldPowerUp shield;
+
         int screenW, screenH, timer;
 
         // Textures
         public Texture2D bullet;
-
-        
-            
 
 
         public Game1()
@@ -61,7 +60,6 @@ namespace Final_Game
 
             // Player Textures
             playerTextures = new List<Texture2D>();
-            playerTextures.Add(this.Content.Load<Texture2D>("Player Textures/bob_left"));
             playerTextures.Add(this.Content.Load<Texture2D>("Player Textures/bob_right"));
 
             bullet = this.Content.Load<Texture2D>("Gun Textures/basic");
@@ -69,8 +67,8 @@ namespace Final_Game
             playerArr[0] = new Player(playerTextures, bullet, new Vector2(50, 50), 1, screenH, 1);
             playerArr[1] = new Player(playerTextures, bullet, new Vector2(100, 100), 2, screenH, 2);
 
+            shield = new ShieldPowerUp(400, 1040, this.Content.Load<Texture2D>("Item Textures/ShieldPotion"), this.Content.Load<Texture2D>("Item Textures/UsingShieldPotion"), new Rectangle(0, 0, screenW, screenH));
             level1 = new Level(Services, "Level1.txt", "StoneTiles", playerArr);
-
             medkit = new HealthPowerUp(200, 1040, this.Content.Load<Texture2D>("MedKit"), this.Content.Load<Texture2D>("UsingMedKit"), new Rectangle(0, 0, screenW, screenH));
 
             timer = 0;
@@ -88,7 +86,7 @@ namespace Final_Game
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            
+
         }
 
         /// <summary>
@@ -121,10 +119,9 @@ namespace Final_Game
             medkit.Update(timer, playerArr);
             level1.Update();
 
+            shield.Update(timer, playerArr);
+
             timer++;
-
-            
-
 
             base.Update(gameTime);
         }
@@ -152,6 +149,7 @@ namespace Final_Game
                 playerArr[i].Draw(spriteBatch);
             }
             medkit.Draw(spriteBatch);
+            shield.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);

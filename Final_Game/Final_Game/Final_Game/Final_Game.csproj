@@ -82,6 +82,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Rifle.cs" />
+    <Compile Include="ShieldPowerUp.cs" />
     <Compile Include="Tile.cs" />
   </ItemGroup>
   <ItemGroup>

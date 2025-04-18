@@ -1,0 +1,16 @@
+# Ignore Visual Studio files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Ignore build directories
+bin/
+obj/
+
+# Ignore compiled files
+*.exe
+*.dll
+*.pdb
+*.cache
