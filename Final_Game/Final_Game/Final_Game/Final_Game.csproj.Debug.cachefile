@@ -9,6 +9,7 @@ Content\StoneTiles\8.xnb
 Content\StoneTiles\9.xnb
 Content\StoneTiles\0.xnb
 Content\StoneTiles\1.xnb
+<<<<<<< Updated upstream
 Content\MedKit.xnb
 Content\UsingMedKit.xnb
 Content\Gun Textures\bullet.xnb
@@ -17,4 +18,13 @@ Content\Player Textures\bob_right.xnb
 Content\Gun Textures\basic.xnb
 Content\Player Textures\greenHealthBar.xnb
 Content\Player Textures\redHealthBar.xnb
+=======
+Content\Item Textures\MedKit.xnb
+Content\Item Textures\UsingMedKit.xnb
+Content\Gun Textures\bullet.xnb
+Content\Player Textures\bob_right.xnb
+Content\Gun Textures\basic.xnb
+Content\Item Textures\ShieldPotion.xnb
+Content\Item Textures\UsingShieldPotion.xnb
+>>>>>>> Stashed changes
 Content\LevelData\Level1.txt
