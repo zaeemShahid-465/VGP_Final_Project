@@ -31,7 +31,6 @@ namespace Final_Game
         PlayerDir playerDir;
 
         //Constants
-        private float gravity;
         private int playerIndex;
         public PlayerIndex pIndex;
 
@@ -59,6 +58,7 @@ namespace Final_Game
         public int health;
         private Rectangle redHealthBar;
         private Rectangle greenHealthBar;
+        Texture2D redHealthTex, greenHealthTex;
 
         int gameTimer;
 
@@ -68,20 +68,19 @@ namespace Final_Game
 
 
 
-        public Player(List<Texture2D> textures, Texture2D basic, Vector2 pos, int playerIndex, float screenHeight, int index)
+        public Player(List<Texture2D> textures, Texture2D basic, Texture2D green, Texture2D red, Vector2 pos, int playerIndex, float screenHeight, int index)
         {
             
             this.justLanded = false;
             this.rect = new Rectangle((int)pos.X, (int)pos.Y, 24*3, 18*3);
             this.playerIndex = playerIndex;
-            gravity = 1;
             grounded = false;
             this.screenHeight = screenHeight;
             velocity = new Vector2(0, 0);
-            speed = 5;
+            speed = 4;
             jumpCount = 0;
             jumpTime = 0;
-            health = 50;
+            health = 25;
             redHealthBar = new Rectangle(this.rect.X, this.rect.Y + 90, 50, 10);
             greenHealthBar = new Rectangle(this.rect.X, this.rect.Y + 90, 25, 10);
             evilBullets = new List<Bullet>();
@@ -90,6 +89,8 @@ namespace Final_Game
             speedCap = 10;
             dashTime = 0;
             this.basic = basic;
+            redHealthTex = red;
+            greenHealthTex = green;
 
             animationTimer = 0;
 
@@ -200,7 +201,7 @@ namespace Final_Game
                     Tile tile = level.tiles[i, j];
                     if (tile != null && !tile.passable && tile.rec.Intersects(newBounds))
                     {
-                        Vector2 depth = GetIntersectionDepth(newBounds, tile.rec);
+                        Vector2 depth = config.GetIntersectionDepth(newBounds, tile.rec);
 
                         if (Math.Abs(depth.Y) < Math.Abs(depth.X))
                         {
@@ -229,34 +230,6 @@ namespace Final_Game
             }
         }
 
-        private Vector2 GetIntersectionDepth(Rectangle rectA, Rectangle rectB)
-        {
-            Vector2 centerA = new Vector2(rectA.Center.X, rectA.Center.Y);
-            Vector2 centerB = new Vector2(rectB.Center.X, rectB.Center.Y);
-            float distanceX = centerA.X - centerB.X;
-            float distanceY = centerA.Y - centerB.Y;
-            float minDistanceX = (rectA.Width + rectB.Width) / 2f;
-            float minDistanceY = (rectA.Height + rectB.Height) / 2f;
-
-            if (Math.Abs(distanceX) >= minDistanceX || Math.Abs(distanceY) >= minDistanceY)
-                return Vector2.Zero;
-
-            float depthX;
-            if (distanceX > 0)
-                depthX = minDistanceX - distanceX;
-            else
-                depthX = -minDistanceX - distanceX;
-
-            float depthY;
-            if (distanceY > 0)
-                depthY = minDistanceY - distanceY;
-            else
-                depthY = -minDistanceY - distanceY;
-
-
-            return new Vector2(depthX, depthY);
-        }
-        
         
 /*        // Gets a list of all bullets you have fired.
         public List<Bullet> Bullets()
@@ -323,8 +296,8 @@ namespace Final_Game
 
             redHealthBar.X = this.rect.X + 10;
             redHealthBar.Y = this.rect.Y - 20;
-            greenHealthBar.X = this.rect.X + 10;
-            greenHealthBar.Y = this.rect.Y - 20;
+            greenHealthBar.X = redHealthBar.X;
+            greenHealthBar.Y = redHealthBar.Y;
 
             jumpTime++;
             dashTimer++;
@@ -420,9 +393,8 @@ namespace Final_Game
         // Apply Gravity
         public void Gravity()
         {
-            // To be reworked to work with tiles
             if (!isOnGround)
-                velocity.Y += (int)gravity;
+                velocity.Y += (int)config.gravity;
 
             if (this.rect.Y >= this.screenHeight - rect.Height)
             {
@@ -445,14 +417,15 @@ namespace Final_Game
             {
                 greenHealthBar.Width = 50;
             }
+
         }
 
         // Draw everything the player has
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, rect, source_rect, Color.White);
-            spriteBatch.Draw(basic, redHealthBar, Color.Red);
-            spriteBatch.Draw(basic, greenHealthBar, Color.Green);
+            spriteBatch.Draw(texture, rect, source_rect, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
+            spriteBatch.Draw(redHealthTex, redHealthBar, null, Color.Red, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
+            spriteBatch.Draw(greenHealthTex, greenHealthBar, Color.Green);
         }
     }
 }

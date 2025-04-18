@@ -13,14 +13,14 @@ namespace Final_Game
 {
     public abstract class Gun
     {
-        
-        
         // Gun Infro
         public Rectangle rect;
         private Texture2D texture;
         public bool pickedUp;
         public List<Bullet> bullets;
         public Vector2 pos;
+        public bool collidedWithPlatform;
+        Vector2 velocity;
 
         // Shooting
         public double angle;
@@ -41,6 +41,7 @@ namespace Final_Game
 
         public Gun(Texture2D Texture, Texture2D basic, int ammo, Rectangle rec)
         {
+            velocity = new Vector2(0, 0);
             this.rect = rec;
             /*rect = new Rectangle((int)playerPos.X, (int)playerPos.Y, 15, 10);*/
             pos = new Vector2(rect.X, rect.Y);
@@ -54,6 +55,7 @@ namespace Final_Game
             reloadTimer = 0;
             this.basic = basic;
             pickedUp = false;
+            collidedWithPlatform = false;
         }
 
         public void AssignOwner(Player p)
@@ -67,34 +69,45 @@ namespace Final_Game
 
         public void Update(int bobbingTimer, Player[] playerArr)
         {
-            Console.WriteLine("Gun Picked up? " + pickedUp);
             // Moving item up and down if not picked up
-            if (!pickedUp)
+            // Applying gravity if not colliding with a platform
+            if (collidedWithPlatform)
             {
-                if (bobbingTimer % 90 < 45)
-                    pos.Y -= 0.5f;
-                else
-                    pos.Y += 0.5f;
-
-                // Assigning gun owner 
-                for (int i = 0; i < playerArr.Length; i++)
+                if (!pickedUp)
                 {
-                    if (playerArr[i].rect.Intersects(rect) && !pickedUp)
+                    if (bobbingTimer % 90 < 45)
+                        pos.Y -= 0.5f;
+                    else
+                        pos.Y += 0.5f;
+
+                    // Assigning gun owner 
+                    for (int i = 0; i < playerArr.Length; i++)
                     {
-                        pickedUp = true;
-                        AssignOwner(playerArr[i]);
-                        playerArr[i].pewpew = this;
+                        if (playerArr[i].rect.Intersects(rect) && !pickedUp)
+                        {
+                            pickedUp = true;
+                            AssignOwner(playerArr[i]);
+                            playerArr[i].pewpew = this;
+                        }
                     }
+
                 }
+                else
+                {
+                    this.playerVel = currPlayer.velocity;
+                    this.angle = currPlayer.angle;
+                    pos.X = currPlayer.rect.X + 50;
+                    pos.Y = currPlayer.rect.Y + 35;
+                }
+
+
             }
             else
             {
-                this.playerVel = currPlayer.velocity;
-                this.angle = currPlayer.angle;
-                pos.X = currPlayer.rect.X + 50;
-                pos.Y = currPlayer.rect.Y + 35;
+                velocity.Y += config.gravity;
             }
 
+            pos.Y += velocity.Y;
             rect.X = (int)pos.X;
             rect.Y = (int)pos.Y;
 
@@ -115,7 +128,7 @@ namespace Final_Game
         
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(basic, rect, new Rectangle(0, 0, 20, 20), Color.Black, (float)angle, new Vector2(0, 10), SpriteEffects.None, 0f);
+            spriteBatch.Draw(texture, rect, new Rectangle(0, 0, 20, 20), Color.Black, (float)angle, new Vector2(0, 10), SpriteEffects.None, 0.3f);
             for (int i = 0; i < bullets.Count(); i++)
             {
                 bullets[i].Draw(spriteBatch);

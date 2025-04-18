@@ -24,6 +24,8 @@ namespace Final_Game
         public List<Gun> weapons;
         public int weaponSpawnTimer;
         public int weaponBobTimer;
+        int weaponDespawnTimer;
+        List<int> weaponDespawnTimers;
 
         public Player[] playerArr;
 
@@ -35,24 +37,49 @@ namespace Final_Game
             weapons = new List<Gun>();
             rand = new Random();
             playerArr = players;
+            weaponDespawnTimers = new List<int>();
         }
 
         public void Update()
         {
             weaponSpawnTimer++;
             weaponBobTimer++;
+            weaponDespawnTimer++;
 
+            // Updating each weapon
             foreach (Gun weapon in weapons)
                 weapon.Update(weaponBobTimer, playerArr);
 
+
+            // Incrementing weapon despawn timers
+            for (int i = 0; i < weaponDespawnTimers.Count(); i++)
+            {
+                weaponDespawnTimers[i]++;
+            }
+
+            // Allowing all players to shoot
             foreach (Player p in playerArr)
             {
                 if (p.pewpew != null)
                     p.pewpew.Shoot();
             }
 
-            if (weaponSpawnTimer % 200 == 0)
-                weapons.Add(new Rifle(this.content.Load<Texture2D>("Gun Textures/basic"), this.content.Load<Texture2D>("Gun Textures/bullet"), 20, new Rectangle(rand.Next(0, 500), 500, 15, 10)));
+            // Spawning weapons after a certain amount of time
+            if (weaponSpawnTimer % 600 == 0)
+            {
+                weapons.Add(new Rifle(this.content.Load<Texture2D>("Gun Textures/basic"), this.content.Load<Texture2D>("Gun Textures/bullet"), 20, new Rectangle(rand.Next(0, config.screenW), 20, 15, 10)));
+                weaponDespawnTimers.Add(0);
+            }
+
+            // Despawning weapons after a certain amount of time
+            for (int i = weaponDespawnTimers.Count() - 1; i >= 0; i--)
+            {
+                if (weaponDespawnTimers[i] > 300)
+                {
+                    weapons.RemoveAt(i);
+                    weaponDespawnTimers.RemoveAt(i);
+                }
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -60,7 +87,7 @@ namespace Final_Game
             foreach (Tile tile in tiles)
             {
                 if (tile != null)
-                    spriteBatch.Draw(tile.tex, tile.rec, Color.White);
+                    spriteBatch.Draw(tile.tex, tile.rec, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.5f);
             }
 
             foreach (Gun weapon in weapons)

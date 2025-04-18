@@ -15,4 +15,6 @@ Content\Gun Textures\bullet.xnb
 Content\Player Textures\bob_left.xnb
 Content\Player Textures\bob_right.xnb
 Content\Gun Textures\basic.xnb
+Content\Player Textures\greenHealthBar.xnb
+Content\Player Textures\redHealthBar.xnb
 Content\LevelData\Level1.txt

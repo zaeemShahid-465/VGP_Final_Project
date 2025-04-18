@@ -45,6 +45,7 @@ namespace Final_Game
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, rect, Color.Yellow);
+            spriteBatch.Draw(texture, rect, null, Color.Yellow, 0f, Vector2.Zero, SpriteEffects.None, 0.3f);
         }
     }
 }
