@@ -230,3 +230,5 @@ C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final
 C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Gun Textures\basic.xnb
 C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Player Textures\greenHealthBar.xnb
 C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Player Textures\redHealthBar.xnb
+C:\Users\252486\Desktop\VGP_FinalGameRepo\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Player Textures\greenHealthBar.xnb
+C:\Users\252486\Desktop\VGP_FinalGameRepo\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Player Textures\redHealthBar.xnb
