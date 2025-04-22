@@ -73,6 +73,9 @@ namespace Final_Game
 
         public Gun pewpew;
 
+        //Items
+        public Boolean hasItem;
+
 
 
         public Player(List<Texture2D> textures, Texture2D basic, Vector2 pos, int playerIndex, float screenHeight, int index)
@@ -99,6 +102,7 @@ namespace Final_Game
             dashTimer = 180;
             speedCap = 10;
             dashTime = 0;
+            hasItem = false;
             this.basic = basic;
 
             animationTimer = 0;

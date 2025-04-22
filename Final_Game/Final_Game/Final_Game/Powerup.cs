@@ -49,10 +49,11 @@ namespace Final_Game
                 }
                 for (int i = 0; i < playerArr.Length; i++)
                 {
-                    if (playerArr[i].rect.Intersects(rectangle) && !pickedUp)
+                    if (playerArr[i].rect.Intersects(rectangle) && !pickedUp && !playerArr[i].hasItem)
                     {
-                        pickedUp = true;
+                        PickUp();
                         currPlayer = playerArr[i];
+                        currPlayer.hasItem = true;
                         switch (i)
                         {
                             case 0:
@@ -80,12 +81,13 @@ namespace Final_Game
                 }
                 else
                 {
-                    rectangle.Width = 25;
-                    rectangle.Height = 25;
+                    rectangle.Width = 27;
+                    rectangle.Height = 27;
                     if (useTimer == 300)
                     {
                         pos.X += velocity.X;
                         pos.Y -= velocity.Y;
+                        currPlayer.hasItem = false;
                         if (!IsOffScreen())
                         {
                             velocity.Y -= 0.4f;

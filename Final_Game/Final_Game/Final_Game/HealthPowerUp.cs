@@ -14,7 +14,9 @@ namespace Final_Game
     public class HealthPowerUp : PowerUp
     {
         public HealthPowerUp(int x, int y, Texture2D normalT, Texture2D usedT, Rectangle window) : base(x, y, normalT, usedT, window)
-        { }
+        {
+            this.rectangle = new Rectangle(x, y, 35, 35);
+        }
 
         public void Update(int timer, Player[] playerArr)
         {

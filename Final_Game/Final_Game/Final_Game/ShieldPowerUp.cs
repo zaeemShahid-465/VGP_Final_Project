@@ -19,9 +19,28 @@ namespace Final_Game
         public void Update(int timer, Player[] playerArr)
         {
             base.Update(timer, playerArr);
-            if (base.useTimer < 300 && base.useTimer % 6 == 0 && used)
+            if (pickedUp)
             {
-                currPlayer.healShield();
+                if (!used)
+                {
+                    rectangle.X += 6;
+                    rectangle.Y += 4;
+                    rectangle.Width = 20;
+                    rectangle.Height = 20;
+                }
+                else
+                {
+                    rectangle.Width = 35;
+                    rectangle.Height = 35;
+                    if (useTimer != 300)
+                    {
+                        rectangle.Y -= 9;
+                    }
+                    if (base.useTimer < 300 && base.useTimer % 6 == 0 && used)
+                    {
+                        currPlayer.healShield();
+                    }
+                }
             }
         }
     }
