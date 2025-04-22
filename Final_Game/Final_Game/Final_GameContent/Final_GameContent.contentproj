@@ -118,8 +118,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Player Textures\bob_right.png">
-      <Name>bob_right</Name>
+    <Compile Include="Player Textures\bob.png">
+      <Name>bob</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -139,6 +139,28 @@
     </Compile>
     <Compile Include="Item Textures\UsingShieldPotion.png">
       <Name>UsingShieldPotion</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Player Textures\albert.png">
+      <Name>albert</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Player Textures\felicia.png">
+      <Name>felicia</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Player Textures\joel.png">
+      <Name>joel</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Player Textures\pedro.png">
+      <Name>pedro</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
