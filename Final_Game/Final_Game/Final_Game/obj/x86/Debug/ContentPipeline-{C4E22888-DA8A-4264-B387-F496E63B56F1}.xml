@@ -101,24 +101,6 @@
       <Time>2025-04-11T10:55:55.3200001-05:00</Time>
     </Item>
     <Item>
-      <Source>MedKit.png</Source>
-      <Name>MedKit</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\252486\Desktop\VGP_FinalGameRepo\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\MedKit.xnb</Output>
-      <Time>2025-04-17T10:59:19.2903951-05:00</Time>
-    </Item>
-    <Item>
-      <Source>UsingMedKit.png</Source>
-      <Name>UsingMedKit</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\252486\Desktop\VGP_FinalGameRepo\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\UsingMedKit.xnb</Output>
-      <Time>2025-04-17T10:59:19.2903951-05:00</Time>
-    </Item>
-    <Item>
       <Source>Gun Textures\bullet.jpg</Source>
       <Name>Gun Textures\bullet</Name>
       <Importer>TextureImporter</Importer>
@@ -171,6 +153,42 @@
       <Options>None</Options>
       <Output>C:\Users\252486\Desktop\VGP_FinalGameRepo\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Player Textures\redHealthBar.xnb</Output>
       <Time>2025-04-22T10:59:52.9068984-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Item Textures\MedKit.png</Source>
+      <Name>Item Textures\MedKit</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\252486\Desktop\VGP_FinalGameRepo\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Item Textures\MedKit.xnb</Output>
+      <Time>2025-04-17T10:59:19.2903951-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Item Textures\UsingMedKit.png</Source>
+      <Name>Item Textures\UsingMedKit</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\252486\Desktop\VGP_FinalGameRepo\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Item Textures\UsingMedKit.xnb</Output>
+      <Time>2025-04-17T10:59:19.2903951-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Gun Textures\AssaultRifle.png</Source>
+      <Name>Gun Textures\AssaultRifle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\252486\Desktop\VGP_FinalGameRepo\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Gun Textures\AssaultRifle.xnb</Output>
+      <Time>2025-04-22T11:45:39.9700273-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Gun Textures\Revolver.png</Source>
+      <Name>Gun Textures\Revolver</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\252486\Desktop\VGP_FinalGameRepo\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Gun Textures\Revolver.xnb</Output>
+      <Time>2025-04-22T11:54:09.2440033-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
