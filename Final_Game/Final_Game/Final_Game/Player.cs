@@ -30,7 +30,6 @@ namespace Final_Game
         }
         PlayerDir playerDir;
 
-        //test
 
         //Constants
         private float gravity;
@@ -59,6 +58,7 @@ namespace Final_Game
 
         // Health
         public int health;
+        public int lives;
         private Rectangle redHealthBar;
         private Rectangle greenHealthBar;
 
@@ -82,7 +82,7 @@ namespace Final_Game
         {
 
             this.justLanded = false;
-            this.rect = new Rectangle((int)pos.X, (int)pos.Y, 24 * 3, 18 * 3);
+            this.rect = new Rectangle((int)pos.X, (int)pos.Y, 24 * 3, 18 * 5);
             this.playerIndex = playerIndex;
             gravity = 1;
             grounded = false;
@@ -106,8 +106,9 @@ namespace Final_Game
             this.basic = basic;
 
             animationTimer = 0;
+            lives = 3;
 
-            this.source_rect = new Rectangle(0, 6, 24, 18);
+            this.source_rect = new Rectangle(0, 6, 24, 24);
 
 
             // Sets Controller Index
@@ -121,15 +122,17 @@ namespace Final_Game
             if (index == 2)
             {
                 pIndex = PlayerIndex.Two;
-                this.texture = textures[0];
+                this.texture = textures[1];
             }
             if (index == 3)
             {
                 pIndex = PlayerIndex.Three;
+                this.texture = textures[2];
             }
             if (index == 4)
             {
                 pIndex = PlayerIndex.Four;
+                this.texture = textures[3];
             }
 
         }
@@ -173,7 +176,7 @@ namespace Final_Game
             {
                 if (playerDir == PlayerDir.walk_right || playerDir == PlayerDir.walk_left)
                 {
-                    source_rect.Y = 37;
+                    source_rect.Y = 32;
                     if (source_rect.X + 24 < 96)
                         source_rect.X += 24;
                     else
@@ -184,7 +187,7 @@ namespace Final_Game
 
                 if (playerDir == PlayerDir.idle_right || playerDir == PlayerDir.idle_left)
                 {
-                    source_rect.Y = 6;
+                    source_rect.Y = 0;
                     if (source_rect.X + 24 < 24 * 5)
                         source_rect.X += 24;
                     else
@@ -195,12 +198,12 @@ namespace Final_Game
 
                 if (!isOnGround && velocity.Y < 0)
                 {
-                    source_rect.Y = 67;
+                    source_rect.Y = 62;
                     source_rect.X = 0;
                 }
                 else if (!isOnGround && velocity.Y > 0)
                 {
-                    source_rect.Y = 97;
+                    source_rect.Y = 92;
                     source_rect.X = 0;
                 }
 
@@ -298,12 +301,21 @@ namespace Final_Game
                         takeDamage();
 
                     }
-
+https://www.desmos.com/calculator
                 }
             }
         }*/
 
         //Update method where other methods are called.
+
+        public void Die()
+        {
+            lives--;
+            if (lives == 0)
+            {
+
+            }
+        }
         public void Update(Player x, Level l)
         {
             gameTimer++;

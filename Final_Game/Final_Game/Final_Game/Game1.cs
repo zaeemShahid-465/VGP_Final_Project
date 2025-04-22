@@ -60,7 +60,11 @@ namespace Final_Game
 
             // Player Textures
             playerTextures = new List<Texture2D>();
-            playerTextures.Add(this.Content.Load<Texture2D>("Player Textures/bob_right"));
+            playerTextures.Add(this.Content.Load<Texture2D>("Player Textures/bob"));
+            playerTextures.Add(this.Content.Load<Texture2D>("Player Textures/felicia"));
+            playerTextures.Add(this.Content.Load<Texture2D>("Player Textures/albert"));
+            playerTextures.Add(this.Content.Load<Texture2D>("Player Textures/joel"));
+            playerTextures.Add(this.Content.Load<Texture2D>("Player Textures/pedro"));
 
             bullet = this.Content.Load<Texture2D>("Gun Textures/basic");
             playerArr = new Player[2];
