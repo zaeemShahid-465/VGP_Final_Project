@@ -23,11 +23,12 @@ namespace Final_Game
 
         public List<Gun> weapons;
         public int weaponSpawnTimer;
-        public int weaponBobTimer;
         int weaponDespawnTimer;
         List<int> weaponDespawnTimers;
 
         public Player[] playerArr;
+
+        public List<int> possibleWeaponSpawnCords;
 
         public Level(IServiceProvider _content, string levelID, string platformSelector, Player[] players)
         {
@@ -38,13 +39,12 @@ namespace Final_Game
             rand = new Random();
             playerArr = players;
             weaponDespawnTimers = new List<int>();
+/*            possibleWeaponSpawnCords = spawnCords;*/
         }
 
         public void Update()
         {
             weaponSpawnTimer++;
-            weaponBobTimer++;
-            weaponDespawnTimer++;
 
             // Updating each weapon
             foreach (Gun weapon in weapons)
@@ -54,7 +54,8 @@ namespace Final_Game
             // Incrementing weapon despawn timers
             for (int i = 0; i < weaponDespawnTimers.Count(); i++)
             {
-                weaponDespawnTimers[i]++;
+                if (!weapons[i].pickedUp)
+                    weaponDespawnTimers[i]++;
             }
 
             // Allowing all players to shoot
@@ -65,9 +66,30 @@ namespace Final_Game
             }
 
             // Spawning weapons after a certain amount of time
-            if (weaponSpawnTimer % 600 == 0)
+            if (weaponSpawnTimer % 200 == 0)
             {
-                weapons.Add(new Rifle(this.content.Load<Texture2D>("Gun Textures/basic"), this.content.Load<Texture2D>("Gun Textures/bullet"), 20, new Rectangle(rand.Next(0, config.screenW), 20, 15, 10)));
+                Texture2D bullet = this.content.Load<Texture2D>("Gun Textures/bullet");
+                int num = rand.Next(1, 2);
+                switch (num)
+                {
+                    case 0:
+                        weapons.Add(
+                            new Rifle(
+                                this.content.Load<Texture2D>("Gun Textures/AssaultRifle"), 
+                                bullet, 
+                                20, new Rectangle(rand.Next(0, config.screenW), 20, 32, 16)));
+                        break;
+                    case 1:
+                        weapons.Add(
+                            new Revolver(
+                                this.content.Load<Texture2D>("Gun Textures/Revolver"),
+                                bullet,
+                                5,
+                                new Rectangle(rand.Next(0, config.screenW), 20, 32, 16)));
+                        break;
+                                
+                }
+                
                 weaponDespawnTimers.Add(0);
             }
 

@@ -81,6 +81,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Revolver.cs" />
     <Compile Include="Rifle.cs" />
     <Compile Include="Tile.cs" />
   </ItemGroup>

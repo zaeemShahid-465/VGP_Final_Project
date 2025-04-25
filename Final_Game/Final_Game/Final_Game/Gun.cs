@@ -1,10 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +9,7 @@ namespace Final_Game
 {
     public abstract class Gun
     {
-        // Gun Infro
+        // Gun Info
         public Rectangle rect;
         private Texture2D texture;
         public bool pickedUp;
@@ -30,20 +26,16 @@ namespace Final_Game
         private int reloadTimer;
         public Texture2D basic;
 
-        // Info about guns parent player
+        // Info about gun's parent player
         public Vector2 playerVel;
         private Vector2 playerPos;
         public PlayerIndex pIndex;
         public Player currPlayer;
 
-
-
-
         public Gun(Texture2D Texture, Texture2D basic, int ammo, Rectangle rec)
         {
             velocity = new Vector2(0, 0);
             this.rect = rec;
-            /*rect = new Rectangle((int)playerPos.X, (int)playerPos.Y, 15, 10);*/
             pos = new Vector2(rect.X, rect.Y);
             texture = Texture;
             angle = 0;
@@ -162,44 +154,69 @@ namespace Final_Game
                         }
                     }
 
+                            if (Math.Abs(depth.Y) < Math.Abs(depth.X))
+                            {
+                                if (depth.Y < 0)
+                                {
+                                    rect.Y = tile.rec.Top - rect.Height;
+                                    pos.Y = rect.Y;
+                                    velocity.Y = 0;
+                                    collidedWithPlatform = true;
+                                }
+                                else
+                                {
+                                    rect.Y += (int)depth.Y;
+                                    pos.Y = rect.Y;
+                                    velocity.Y = 0;
+                                }
+                            }
+                            else
+                            {
+                                if (depth.X < 0)
+                                    rect.X = tile.rec.Left - rect.Width;
+                                else
+                                    rect.X = tile.rec.Right;
+
+                                pos.X = rect.X;
+                                velocity.X = 0;
+                            }
+                        }
+                    }
                 }
-                else
+
+                // Pickup logic (only if gun is on the platform)
+                if (collidedWithPlatform)
                 {
-                    this.playerVel = currPlayer.velocity;
-                    this.angle = currPlayer.angle;
-                    pos.X = currPlayer.rect.X + 50;
-                    pos.Y = currPlayer.rect.Y + 35;
+                    for (int i = 0; i < playerArr.Length; i++)
+                    {
+                        if (playerArr[i].rect.Intersects(rect))
+                        {
+                            pickedUp = true;
+                            AssignOwner(playerArr[i]);
+                            playerArr[i].pewpew = this;
+                            velocity = Vector2.Zero;
+                            break;
+                        }
+                    }
                 }
-
-
-            }
-            else
-            {
-                velocity.Y += config.gravity;
             }
 
-            pos.Y += velocity.Y;
-            rect.X = (int)pos.X;
-            rect.Y = (int)pos.Y;
-
-            
             bulletTimer++;
             GamePadState pad1 = GamePad.GetState(pIndex);
-            
 
             for (int i = 0; i < bullets.Count(); i++)
             {
                 bullets[i].Update();
             }
-            //Console.WriteLine(bullets.Count());
+
             Reload();
         }*/
 
         public abstract void Shoot();
-        
+
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, rect, new Rectangle(0, 0, 20, 20), Color.Black, (float)angle, new Vector2(0, 10), SpriteEffects.None, 0.3f);
+            spriteBatch.Draw(texture, rect, null, Color.White, (float)angle, new Vector2(0, 10), SpriteEffects.None, 0.3f);
             for (int i = 0; i < bullets.Count(); i++)
             {
                 bullets[i].Draw(spriteBatch);
@@ -212,7 +229,6 @@ namespace Final_Game
             if (pad1.IsButtonDown(Buttons.B) || reloadTimer != 0)
             {
                 reloadTimer++;
-                // has enough time to reloed passed
                 if (reloadTimer >= 180)
                 {
                     ammo = capacity;
