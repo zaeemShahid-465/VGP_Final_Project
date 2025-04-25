@@ -59,7 +59,7 @@ namespace Final_Game
             this.angle = p.angle;
         }
 
-        public void Update(int bobbingTimer, Player[] playerArr, Tile[,] map)
+        public void Update(Player[] playerArr, Tile[,] map)
         {
             if (!pickedUp)
             {
@@ -135,82 +135,6 @@ namespace Final_Game
             }
         }
 
-        /*public void Update(int bobbingTimer, Player[] playerArr)
-        {
-            // Moving item up and down if not picked up
-            // Applying gravity if not colliding with a platform
-            if (collidedWithPlatform)
-            {
-                if (!pickedUp)
-                {
-                    // Assigning gun owner 
-                    for (int i = 0; i < playerArr.Length; i++)
-                    {
-                        if (playerArr[i].rect.Intersects(rect) && !pickedUp)
-                        {
-                            pickedUp = true;
-                            AssignOwner(playerArr[i]);
-                            playerArr[i].pewpew = this;
-                        }
-                    }
-
-                            if (Math.Abs(depth.Y) < Math.Abs(depth.X))
-                            {
-                                if (depth.Y < 0)
-                                {
-                                    rect.Y = tile.rec.Top - rect.Height;
-                                    pos.Y = rect.Y;
-                                    velocity.Y = 0;
-                                    collidedWithPlatform = true;
-                                }
-                                else
-                                {
-                                    rect.Y += (int)depth.Y;
-                                    pos.Y = rect.Y;
-                                    velocity.Y = 0;
-                                }
-                            }
-                            else
-                            {
-                                if (depth.X < 0)
-                                    rect.X = tile.rec.Left - rect.Width;
-                                else
-                                    rect.X = tile.rec.Right;
-
-                                pos.X = rect.X;
-                                velocity.X = 0;
-                            }
-                        }
-                    }
-                }
-
-                // Pickup logic (only if gun is on the platform)
-                if (collidedWithPlatform)
-                {
-                    for (int i = 0; i < playerArr.Length; i++)
-                    {
-                        if (playerArr[i].rect.Intersects(rect))
-                        {
-                            pickedUp = true;
-                            AssignOwner(playerArr[i]);
-                            playerArr[i].pewpew = this;
-                            velocity = Vector2.Zero;
-                            break;
-                        }
-                    }
-                }
-            }
-
-            bulletTimer++;
-            GamePadState pad1 = GamePad.GetState(pIndex);
-
-            for (int i = 0; i < bullets.Count(); i++)
-            {
-                bullets[i].Update();
-            }
-
-            Reload();
-        }*/
 
         public abstract void Shoot();
 

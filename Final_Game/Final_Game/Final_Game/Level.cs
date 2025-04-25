@@ -48,7 +48,7 @@ namespace Final_Game
 
             // Updating each weapon
             foreach (Gun weapon in weapons)
-                weapon.Update(weaponBobTimer, playerArr, tiles);
+                weapon.Update(playerArr, tiles);
 
 
             // Incrementing weapon despawn timers
