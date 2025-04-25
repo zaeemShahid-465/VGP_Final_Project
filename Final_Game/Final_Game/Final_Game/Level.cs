@@ -42,6 +42,9 @@ namespace Final_Game
 /*            possibleWeaponSpawnCords = spawnCords;*/
         }
 
+        /// <summary>
+        /// test
+        /// </summary>
         public void Update()
         {
             weaponSpawnTimer++;
