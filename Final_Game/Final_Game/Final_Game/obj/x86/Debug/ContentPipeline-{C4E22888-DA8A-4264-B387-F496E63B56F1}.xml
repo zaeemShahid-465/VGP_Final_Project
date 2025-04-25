@@ -101,24 +101,6 @@
       <Time>2025-04-15T17:06:04.389565-05:00</Time>
     </Item>
     <Item>
-      <Source>MedKit.png</Source>
-      <Name>MedKit</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\MedKit.xnb</Output>
-      <Time>2025-04-15T17:24:09.5385972-05:00</Time>
-    </Item>
-    <Item>
-      <Source>UsingMedKit.png</Source>
-      <Name>UsingMedKit</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\UsingMedKit.xnb</Output>
-      <Time>2025-04-15T17:24:09.5405968-05:00</Time>
-    </Item>
-    <Item>
       <Source>Gun Textures\bullet.jpg</Source>
       <Name>Gun Textures\bullet</Name>
       <Importer>TextureImporter</Importer>
@@ -134,7 +116,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Player Textures\bob_left.xnb</Output>
-      <Time>2025-04-17T08:37:54.2876129-05:00</Time>
+      <Time>2025-04-24T20:23:36.5141611-05:00</Time>
     </Item>
     <Item>
       <Source>Player Textures\bob_right.png</Source>
@@ -143,7 +125,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Player Textures\bob_right.xnb</Output>
-      <Time>2025-04-17T08:37:54.2876129-05:00</Time>
+      <Time>2025-04-24T20:23:36.5141611-05:00</Time>
     </Item>
     <Item>
       <Source>Gun Textures\basic.jpg</Source>
@@ -161,7 +143,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Player Textures\greenHealthBar.xnb</Output>
-      <Time>2025-04-17T18:49:42.6575992-05:00</Time>
+      <Time>2025-04-24T20:23:36.5151343-05:00</Time>
     </Item>
     <Item>
       <Source>Player Textures\redHealthBar.png</Source>
@@ -170,7 +152,25 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Player Textures\redHealthBar.xnb</Output>
-      <Time>2025-04-17T18:49:42.6625998-05:00</Time>
+      <Time>2025-04-24T20:23:36.5161336-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Item Textures\MedKit.png</Source>
+      <Name>Item Textures\MedKit</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Item Textures\MedKit.xnb</Output>
+      <Time>2025-04-24T20:23:36.5121251-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Item Textures\UsingMedKit.png</Source>
+      <Name>Item Textures\UsingMedKit</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Item Textures\UsingMedKit.xnb</Output>
+      <Time>2025-04-24T20:23:36.518134-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

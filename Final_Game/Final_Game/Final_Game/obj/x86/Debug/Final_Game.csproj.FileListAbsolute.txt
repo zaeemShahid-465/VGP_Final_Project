@@ -163,8 +163,6 @@ C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final
 C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\StoneTiles\9.xnb
 C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\StoneTiles\0.xnb
 C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\StoneTiles\1.xnb
-C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\MedKit.xnb
-C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\UsingMedKit.xnb
 C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\LevelData\Level1.txt
 C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Final_Game.exe
 C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Final_Game.pdb
@@ -230,3 +228,5 @@ C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final
 C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Gun Textures\basic.xnb
 C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Player Textures\greenHealthBar.xnb
 C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Player Textures\redHealthBar.xnb
+C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Item Textures\MedKit.xnb
+C:\Users\shahi\Desktop\VGP_Final_Project_Repo\VGP_Final_Project\Final_Game\Final_Game\Final_Game\bin\x86\Debug\Content\Item Textures\UsingMedKit.xnb

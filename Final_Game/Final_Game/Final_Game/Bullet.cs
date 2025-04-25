@@ -19,7 +19,7 @@ namespace Final_Game
         public Texture2D texture;
 
         // Player info
-        PlayerIndex pIndex;
+        public PlayerIndex pIndex;
 
         public Bullet(Vector2 dir, Rectangle rect, Texture2D texture, PlayerIndex index)
         {

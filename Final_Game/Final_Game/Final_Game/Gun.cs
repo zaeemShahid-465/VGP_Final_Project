@@ -67,7 +67,83 @@ namespace Final_Game
             this.angle = p.angle;
         }
 
-        public void Update(int bobbingTimer, Player[] playerArr)
+        public void Update(int bobbingTimer, Player[] playerArr, Tile[,] map)
+        {
+            if (!pickedUp)
+            {
+                // Apply gravity
+                velocity.Y += config.gravity;
+
+                // Move vertically
+                pos.Y += velocity.Y;
+                rect.Y = (int)pos.Y;
+
+                // Handle platform collisions
+                Collide(map);
+
+                // Check for pickup by any player
+                foreach (Player p in playerArr)
+                {
+                    if (p.rect.Intersects(rect))
+                    {
+                        pickedUp = true;
+                        AssignOwner(p);
+                        p.pewpew = this;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                // Follow the owning player
+                this.playerVel = currPlayer.velocity;
+                this.angle = currPlayer.angle;
+                pos.X = currPlayer.rect.X + 50;
+                pos.Y = currPlayer.rect.Y + 35;
+                rect.X = (int)pos.X;
+                rect.Y = (int)pos.Y;
+            }
+
+            // Update bullets
+            bulletTimer++;
+            foreach (var bullet in bullets)
+                bullet.Update();
+
+            Reload();
+        }
+
+        public void Collide(Tile[,] map)
+        {
+            collidedWithPlatform = false;
+
+            for (int i = 0; i < map.GetLength(0); i++)
+            {
+                for (int j = 0; j < map.GetLength(1); j++)
+                {
+                    Tile tile = map[i, j];
+                    if (tile == null || tile.passable) continue;
+
+                    if (tile.rec.Intersects(rect))
+                    {
+                        Vector2 depth = config.GetIntersectionDepth(rect, tile.rec);
+
+                        if (Math.Abs(depth.Y) < Math.Abs(depth.X))
+                        {
+                            // Vertical collision
+                            rect.Y += (int)depth.Y;
+                            pos.Y = rect.Y;
+                            velocity.Y = 0;
+
+                            // If the gun landed on top of the tile, it's grounded
+                            if (depth.Y < 0)
+                                collidedWithPlatform = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        /*public void Update(int bobbingTimer, Player[] playerArr)
         {
             // Moving item up and down if not picked up
             // Applying gravity if not colliding with a platform
@@ -75,11 +151,6 @@ namespace Final_Game
             {
                 if (!pickedUp)
                 {
-                    if (bobbingTimer % 90 < 45)
-                        pos.Y -= 0.5f;
-                    else
-                        pos.Y += 0.5f;
-
                     // Assigning gun owner 
                     for (int i = 0; i < playerArr.Length; i++)
                     {
@@ -122,7 +193,7 @@ namespace Final_Game
             }
             //Console.WriteLine(bullets.Count());
             Reload();
-        }
+        }*/
 
         public abstract void Shoot();
         

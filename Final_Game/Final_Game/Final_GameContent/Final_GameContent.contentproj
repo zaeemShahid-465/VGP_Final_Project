@@ -99,12 +99,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MedKit.png">
+    <Compile Include="Item Textures\MedKit.png">
       <Name>MedKit</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="UsingMedKit.png">
+    <Compile Include="Item Textures\UsingMedKit.png">
       <Name>UsingMedKit</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>

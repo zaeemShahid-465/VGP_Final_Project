@@ -48,7 +48,7 @@ namespace Final_Game
 
             // Updating each weapon
             foreach (Gun weapon in weapons)
-                weapon.Update(weaponBobTimer, playerArr);
+                weapon.Update(weaponBobTimer, playerArr, tiles);
 
 
             // Incrementing weapon despawn timers
@@ -74,10 +74,37 @@ namespace Final_Game
             // Despawning weapons after a certain amount of time
             for (int i = weaponDespawnTimers.Count() - 1; i >= 0; i--)
             {
-                if (weaponDespawnTimers[i] > 300)
+                if (weaponDespawnTimers[i] > 300 && !weapons[i].pickedUp)
                 {
                     weapons.RemoveAt(i);
                     weaponDespawnTimers.RemoveAt(i);
+                }
+            }
+
+            CheckBulletCollisions();
+        }
+
+        public void CheckBulletCollisions()
+        {
+            foreach (Player target in playerArr)
+            {
+                foreach (Player shooter in playerArr)
+                {
+                    if (shooter.pewpew == null) continue;
+
+                    for (int i = shooter.pewpew.bullets.Count - 1; i >= 0; i--)
+                    {
+                        Bullet b = shooter.pewpew.bullets[i];
+
+                        if (b.rect.Intersects(target.rect) && target.pIndex != b.pIndex)
+                        {
+                            // Apply damage
+                            target.takeDamage();
+
+                            // Remove bullet
+                            shooter.pewpew.bullets.RemoveAt(i);
+                        }
+                    }
                 }
             }
         }
