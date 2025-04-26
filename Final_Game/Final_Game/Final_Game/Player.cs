@@ -30,6 +30,7 @@ namespace Final_Game
         }
         PlayerDir playerDir;
 
+
         //Constants
         private int playerIndex;
         public PlayerIndex pIndex;
@@ -56,9 +57,15 @@ namespace Final_Game
 
         // Health
         public int health;
+        public int lives;
         private Rectangle redHealthBar;
         private Rectangle greenHealthBar;
         Texture2D redHealthTex, greenHealthTex;
+
+        //Shield
+        public int shield;
+        private Rectangle blueShieldBar;
+        private Rectangle redShieldBar;
 
         int gameTimer;
 
@@ -66,13 +73,16 @@ namespace Final_Game
 
         public Gun pewpew;
 
+        //Items
+        public Boolean hasItem;
+
 
 
         public Player(List<Texture2D> textures, Texture2D basic, Texture2D green, Texture2D red, Vector2 pos, int playerIndex, float screenHeight, int index)
         {
-            
+
             this.justLanded = false;
-            this.rect = new Rectangle((int)pos.X, (int)pos.Y, 24*3, 18*3);
+            this.rect = new Rectangle((int)pos.X, (int)pos.Y, 24 * 3, 18 * 5);
             this.playerIndex = playerIndex;
             grounded = false;
             this.screenHeight = screenHeight;
@@ -80,44 +90,50 @@ namespace Final_Game
             speed = 4;
             jumpCount = 0;
             jumpTime = 0;
-            health = 25;
+            health = 50;
+            shield = 50;
             redHealthBar = new Rectangle(this.rect.X, this.rect.Y + 90, 50, 10);
             greenHealthBar = new Rectangle(this.rect.X, this.rect.Y + 90, 25, 10);
+            blueShieldBar = new Rectangle(this.rect.X, this.rect.Y + 75, 25, 10);
+            redShieldBar = new Rectangle(this.rect.X, this.rect.Y + 75, 50, 10);
             evilBullets = new List<Bullet>();
             angle = 0;
             dashTimer = 180;
             speedCap = 10;
             dashTime = 0;
+            hasItem = false;
             this.basic = basic;
             redHealthTex = red;
             greenHealthTex = green;
 
             animationTimer = 0;
+            lives = 3;
 
-            this.source_rect = new Rectangle(0, 6, 24, 18);
+            this.source_rect = new Rectangle(0, 6, 24, 24);
 
 
             // Sets Controller Index
             if (index == 1)
             {
                 pIndex = PlayerIndex.One;
-                this.left = textures[0];
-                this.right = textures[1];
+                this.right = textures[0];
                 this.texture = right;
                 this.playerDir = PlayerDir.idle_right;
             }
             if (index == 2)
             {
                 pIndex = PlayerIndex.Two;
-                this.texture = textures[0];
+                this.texture = textures[1];
             }
             if (index == 3)
             {
                 pIndex = PlayerIndex.Three;
+                this.texture = textures[2];
             }
             if (index == 4)
             {
                 pIndex = PlayerIndex.Four;
+                this.texture = textures[3];
             }
 
         }
@@ -132,7 +148,7 @@ namespace Final_Game
                 {
                     playerDir = PlayerDir.walk_right;
                 }
-                if (pad1.ThumbSticks.Left.X < 0)
+                else if (pad1.ThumbSticks.Left.X < 0)
                 {
                     playerDir = PlayerDir.walk_left;
                 }
@@ -141,7 +157,7 @@ namespace Final_Game
 
             else
             {
-                
+
                 if (playerDir == PlayerDir.walk_right)
                 {
                     playerDir = PlayerDir.idle_right;
@@ -149,10 +165,6 @@ namespace Final_Game
                 else if (playerDir == PlayerDir.walk_left)
                 {
                     playerDir = PlayerDir.idle_left;
-                }
-                else
-                {
-                    playerDir = PlayerDir.idle_right;
                 }
             }
 
@@ -163,9 +175,9 @@ namespace Final_Game
         {
             if (animationTimer >= 10)
             {
-                if (playerDir == PlayerDir.walk_right)
+                if (playerDir == PlayerDir.walk_right || playerDir == PlayerDir.walk_left)
                 {
-                    source_rect.Y = 37;
+                    source_rect.Y = 32;
                     if (source_rect.X + 24 < 96)
                         source_rect.X += 24;
                     else
@@ -174,15 +186,26 @@ namespace Final_Game
                     animationTimer = 0;
                 }
 
-                if (playerDir == PlayerDir.idle_right)
+                if (playerDir == PlayerDir.idle_right || playerDir == PlayerDir.idle_left)
                 {
-                    source_rect.Y = 6;
+                    source_rect.Y = 0;
                     if (source_rect.X + 24 < 24 * 5)
                         source_rect.X += 24;
                     else
                         source_rect.X = 0;
 
                     animationTimer = 0;
+                }
+
+                if (!isOnGround && velocity.Y < 0)
+                {
+                    source_rect.Y = 62;
+                    source_rect.X = 0;
+                }
+                else if (!isOnGround && velocity.Y > 0)
+                {
+                    source_rect.Y = 92;
+                    source_rect.X = 0;
                 }
 
             }
@@ -249,14 +272,23 @@ namespace Final_Game
                     {
                         x.pewpew.bullets.Remove(x.pewpew.bullets[i]);
                         takeDamage();
-                        
+
                     }
-                 
+https://www.desmos.com/calculator
                 }
             }
         }*/
 
         //Update method where other methods are called.
+
+        public void Die()
+        {
+            lives--;
+            if (lives == 0)
+            {
+
+            }
+        }
         public void Update(Player x, Level l)
         {
             gameTimer++;
@@ -299,12 +331,17 @@ namespace Final_Game
             greenHealthBar.X = redHealthBar.X;
             greenHealthBar.Y = redHealthBar.Y;
 
+            redShieldBar.X = this.rect.X + 10;
+            redShieldBar.Y = this.rect.Y - 35;
+            blueShieldBar.X = this.rect.X + 10;
+            blueShieldBar.Y = this.rect.Y - 35;
+
             jumpTime++;
             dashTimer++;
             dashTime++;
 
             KeyboardState keyState = Keyboard.GetState();
-            
+
 
         }
 
@@ -383,12 +420,12 @@ namespace Final_Game
                 justLanded = false;
                 jumpCount++;
                 isOnGround = false;
-            }    
-                /*if (jumpCount >= 2)
-                {
-                    grounded = false;
-                }*/
-                   
+            }
+            /*if (jumpCount >= 2)
+            {
+                grounded = false;
+            }*/
+
         }
         // Apply Gravity
         public void Gravity()
@@ -405,6 +442,7 @@ namespace Final_Game
             }
         }
 
+        //Gradually adds health to player until it's 100
         public void heal()
         {
             greenHealthBar.Width += 1;
@@ -420,12 +458,36 @@ namespace Final_Game
 
         }
 
+        //Gradually adds shield to player until it's 100
+        public void healShield()
+        {
+            blueShieldBar.Width += 1;
+            shield += 2;
+            if (shield > 100)
+            {
+                shield = 100;
+            }
+            if (blueShieldBar.Width > 50)
+            {
+                blueShieldBar.Width = 50;
+            }
+        }
+
         // Draw everything the player has
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, rect, source_rect, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
-            spriteBatch.Draw(redHealthTex, redHealthBar, null, Color.Red, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
+            if (playerDir == PlayerDir.walk_left || playerDir == PlayerDir.idle_left)
+            {
+                spriteBatch.Draw(texture, rect, source_rect, Color.White, 0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
+            }
+            else
+            {
+                spriteBatch.Draw(texture, rect, source_rect, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0);
+            }
+            spriteBatch.Draw(redHealthTex, redHealthBar, Color.Red);
             spriteBatch.Draw(greenHealthTex, greenHealthBar, Color.Green);
+            spriteBatch.Draw(basic, redShieldBar, Color.Red);
+            spriteBatch.Draw(basic, blueShieldBar, Color.Blue);
         }
     }
 }
