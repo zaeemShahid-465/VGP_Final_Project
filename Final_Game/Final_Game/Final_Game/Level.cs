@@ -136,7 +136,7 @@ namespace Final_Game
             foreach (Tile tile in tiles)
             {
                 if (tile != null)
-                    spriteBatch.Draw(tile.tex, tile.rec, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.5f);
+                    spriteBatch.Draw(tile.tex, tile.rec, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0f);
             }
 
             foreach (Gun weapon in weapons)

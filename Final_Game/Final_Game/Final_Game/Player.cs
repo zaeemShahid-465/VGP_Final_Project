@@ -358,12 +358,58 @@ https://www.desmos.com/calculator
         // Take Damage
         public void takeDamage()
         {
-            greenHealthBar.Width -= 10;
-            health -= 10;
-            if (health < 0)
-                health = 0;
-            if (greenHealthBar.Width < 0)
-                greenHealthBar.Width = 0;
+            int damage = 10; // assuming you always deal 10 damage at a time
+
+            if (shield > 0)
+            {
+                shield -= damage;
+                blueShieldBar.Width -= (int)((damage / 100.0) * redShieldBar.Width);
+
+                if (shield < 0)
+                {
+                    // leftover damage
+                    int leftoverDamage = -shield;
+                    shield = 0;
+
+                    // Apply leftover damage to health
+                    health -= leftoverDamage;
+                    greenHealthBar.Width -= (int)((leftoverDamage / 100.0) * redHealthBar.Width);
+
+                    if (health < 0)
+                        health = 0;
+                    if (greenHealthBar.Width < 0)
+                        greenHealthBar.Width = 0;
+                }
+            }
+            else
+            {
+                health -= damage;
+                greenHealthBar.Width -= (int)((damage / 100.0) * redHealthBar.Width);
+
+                if (health < 0)
+                    health = 0;
+                if (greenHealthBar.Width < 0)
+                    greenHealthBar.Width = 0;
+            }
+
+            /*if (shield < 0)
+            {
+                greenHealthBar.Width -= 10;
+                health -= 10;
+                if (health < 0)
+                    health = 0;
+                if (greenHealthBar.Width < 0)
+                    greenHealthBar.Width = 0;
+            }
+            else
+            {
+                blueShieldBar.Width -= 10;
+                shield -= 10;
+                if (shield < 0)
+                    shield = 0;
+                if (blueShieldBar.Width < 0)
+                    blueShieldBar.Width = 0;
+            }*/
         }
         // Horizontal Movment
         public void horizontalMove()
@@ -478,16 +524,16 @@ https://www.desmos.com/calculator
         {
             if (playerDir == PlayerDir.walk_left || playerDir == PlayerDir.idle_left)
             {
-                spriteBatch.Draw(texture, rect, source_rect, Color.White, 0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
+                spriteBatch.Draw(texture, rect, source_rect, Color.White, 0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0.5f);
             }
             else
             {
-                spriteBatch.Draw(texture, rect, source_rect, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0);
+                spriteBatch.Draw(texture, rect, source_rect, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.5f);
             }
-            spriteBatch.Draw(redHealthTex, redHealthBar, Color.Red);
-            spriteBatch.Draw(greenHealthTex, greenHealthBar, Color.Green);
-            spriteBatch.Draw(basic, redShieldBar, Color.Red);
-            spriteBatch.Draw(basic, blueShieldBar, Color.Blue);
+            spriteBatch.Draw(redHealthTex, redHealthBar, null, Color.Red, 0f, Vector2.Zero, SpriteEffects.None, 0.2f);
+            spriteBatch.Draw(greenHealthTex, greenHealthBar, null, Color.Green, 0f, Vector2.Zero, SpriteEffects.None, 0.1f);
+            spriteBatch.Draw(basic, redShieldBar, null, Color.Red, 0f, Vector2.Zero, SpriteEffects.None, 0.2f);
+            spriteBatch.Draw(basic, blueShieldBar, null, Color.Blue, 0f, Vector2.Zero, SpriteEffects.None, 0.1f);
         }
     }
 }

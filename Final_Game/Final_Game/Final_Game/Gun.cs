@@ -76,7 +76,7 @@ namespace Final_Game
                 // Check for pickup by any player
                 foreach (Player p in playerArr)
                 {
-                    if (p.rect.Intersects(rect))
+                    if (p.rect.Intersects(rect) && p.pewpew == null)
                     {
                         pickedUp = true;
                         AssignOwner(p);
@@ -91,7 +91,7 @@ namespace Final_Game
                 this.playerVel = currPlayer.velocity;
                 this.angle = currPlayer.angle;
                 pos.X = currPlayer.rect.X + 50;
-                pos.Y = currPlayer.rect.Y + 35;
+                pos.Y = currPlayer.rect.Y + 55;
                 rect.X = (int)pos.X;
                 rect.Y = (int)pos.Y;
             }
@@ -140,7 +140,7 @@ namespace Final_Game
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, rect, null, Color.White, (float)angle, new Vector2(0, 10), SpriteEffects.None, 0.3f);
+            spriteBatch.Draw(texture, rect, null, Color.White, (float)angle, new Vector2(0, 10), SpriteEffects.None, 0f);
             for (int i = 0; i < bullets.Count(); i++)
             {
                 bullets[i].Draw(spriteBatch);
