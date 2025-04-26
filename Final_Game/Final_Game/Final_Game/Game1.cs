@@ -67,9 +67,11 @@ namespace Final_Game
             playerTextures.Add(this.Content.Load<Texture2D>("Player Textures/pedro"));
 
             bullet = this.Content.Load<Texture2D>("Gun Textures/basic");
+            Texture2D greenHealth = this.Content.Load<Texture2D>("Player Textures/greenHealthBar");
+            Texture2D redHealth = this.Content.Load<Texture2D>("Player Textures/redHealthBar");
             playerArr = new Player[2];
-            playerArr[0] = new Player(playerTextures, bullet, new Vector2(50, 50), 1, screenH, 1);
-            playerArr[1] = new Player(playerTextures, bullet, new Vector2(100, 100), 2, screenH, 2);
+            playerArr[0] = new Player(playerTextures, bullet, greenHealth, redHealth, new Vector2(400, 50), 1, screenH, 1);
+            playerArr[1] = new Player(playerTextures, bullet, greenHealth, redHealth, new Vector2(400, 100), 2, screenH, 2);
 
             shield = new ShieldPowerUp(400, 1040, this.Content.Load<Texture2D>("Item Textures/ShieldPotion"), this.Content.Load<Texture2D>("Item Textures/UsingShieldPotion"), new Rectangle(0, 0, screenW, screenH));
             level1 = new Level(Services, "Level1.txt", "StoneTiles", playerArr);
@@ -146,7 +148,7 @@ namespace Final_Game
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             level1.Draw(spriteBatch);
             for (int i = 0; i < playerArr.Length; i++)
             {

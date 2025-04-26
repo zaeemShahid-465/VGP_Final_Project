@@ -1,10 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,14 +9,14 @@ namespace Final_Game
 {
     public abstract class Gun
     {
-        
-        
-        // Gun Infro
+        // Gun Info
         public Rectangle rect;
         private Texture2D texture;
         public bool pickedUp;
         public List<Bullet> bullets;
         public Vector2 pos;
+        public bool collidedWithPlatform;
+        Vector2 velocity;
 
         // Shooting
         public double angle;
@@ -30,19 +26,16 @@ namespace Final_Game
         private int reloadTimer;
         public Texture2D basic;
 
-        // Info about guns parent player
+        // Info about gun's parent player
         public Vector2 playerVel;
         private Vector2 playerPos;
         public PlayerIndex pIndex;
         public Player currPlayer;
 
-
-
-
         public Gun(Texture2D Texture, Texture2D basic, int ammo, Rectangle rec)
         {
+            velocity = new Vector2(0, 0);
             this.rect = rec;
-            /*rect = new Rectangle((int)playerPos.X, (int)playerPos.Y, 15, 10);*/
             pos = new Vector2(rect.X, rect.Y);
             texture = Texture;
             angle = 0;
@@ -54,6 +47,7 @@ namespace Final_Game
             reloadTimer = 0;
             this.basic = basic;
             pickedUp = false;
+            collidedWithPlatform = false;
         }
 
         public void AssignOwner(Player p)
@@ -65,57 +59,88 @@ namespace Final_Game
             this.angle = p.angle;
         }
 
-        public void Update(int bobbingTimer, Player[] playerArr)
+        public void Update(Player[] playerArr, Tile[,] map)
         {
-            Console.WriteLine("Gun Picked up? " + pickedUp);
-            // Moving item up and down if not picked up
             if (!pickedUp)
             {
-                if (bobbingTimer % 90 < 45)
-                    pos.Y -= 0.5f;
-                else
-                    pos.Y += 0.5f;
+                // Apply gravity
+                velocity.Y += config.gravity;
 
-                // Assigning gun owner 
-                for (int i = 0; i < playerArr.Length; i++)
+                // Move vertically
+                pos.Y += velocity.Y;
+                rect.Y = (int)pos.Y;
+
+                // Handle platform collisions
+                Collide(map);
+
+                // Check for pickup by any player
+                foreach (Player p in playerArr)
                 {
-                    if (playerArr[i].rect.Intersects(rect) && !pickedUp)
+                    if (p.rect.Intersects(rect) && p.pewpew == null)
                     {
                         pickedUp = true;
-                        AssignOwner(playerArr[i]);
-                        playerArr[i].pewpew = this;
+                        AssignOwner(p);
+                        p.pewpew = this;
+                        break;
                     }
                 }
             }
             else
             {
+                // Follow the owning player
                 this.playerVel = currPlayer.velocity;
                 this.angle = currPlayer.angle;
                 pos.X = currPlayer.rect.X + 50;
-                pos.Y = currPlayer.rect.Y + 35;
+                pos.Y = currPlayer.rect.Y + 55;
+                rect.X = (int)pos.X;
+                rect.Y = (int)pos.Y;
             }
 
-            rect.X = (int)pos.X;
-            rect.Y = (int)pos.Y;
-
-            
+            // Update bullets
             bulletTimer++;
-            GamePadState pad1 = GamePad.GetState(pIndex);
-            
+            foreach (var bullet in bullets)
+                bullet.Update();
 
-            for (int i = 0; i < bullets.Count(); i++)
-            {
-                bullets[i].Update();
-            }
-            //Console.WriteLine(bullets.Count());
             Reload();
         }
 
+        public void Collide(Tile[,] map)
+        {
+            collidedWithPlatform = false;
+
+            for (int i = 0; i < map.GetLength(0); i++)
+            {
+                for (int j = 0; j < map.GetLength(1); j++)
+                {
+                    Tile tile = map[i, j];
+                    if (tile == null || tile.passable) continue;
+
+                    if (tile.rec.Intersects(rect))
+                    {
+                        Vector2 depth = config.GetIntersectionDepth(rect, tile.rec);
+
+                        if (Math.Abs(depth.Y) < Math.Abs(depth.X))
+                        {
+                            // Vertical collision
+                            rect.Y += (int)depth.Y;
+                            pos.Y = rect.Y;
+                            velocity.Y = 0;
+
+                            // If the gun landed on top of the tile, it's grounded
+                            if (depth.Y < 0)
+                                collidedWithPlatform = true;
+                        }
+                    }
+                }
+            }
+        }
+
+
         public abstract void Shoot();
-        
+
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(basic, rect, new Rectangle(0, 0, 20, 20), Color.Black, (float)angle, new Vector2(0, 10), SpriteEffects.None, 0f);
+            spriteBatch.Draw(texture, rect, null, Color.White, (float)angle, new Vector2(0, 10), SpriteEffects.None, 0f);
             for (int i = 0; i < bullets.Count(); i++)
             {
                 bullets[i].Draw(spriteBatch);
@@ -128,7 +153,6 @@ namespace Final_Game
             if (pad1.IsButtonDown(Buttons.B) || reloadTimer != 0)
             {
                 reloadTimer++;
-                // has enough time to reloed passed
                 if (reloadTimer >= 180)
                 {
                     ammo = capacity;

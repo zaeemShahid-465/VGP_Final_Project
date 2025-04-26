@@ -118,13 +118,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Player Textures\bob.png">
-      <Name>bob</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Gun Textures\basic.jpg">
       <Name>basic</Name>
       <Importer>TextureImporter</Importer>
@@ -132,13 +125,34 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Item Textures\ShieldPotion.png">
-      <Name>ShieldPotion</Name>
+    <Compile Include="Player Textures\greenHealthBar.png">
+      <Name>greenHealthBar</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Item Textures\UsingShieldPotion.png">
-      <Name>UsingShieldPotion</Name>
+    <Compile Include="Player Textures\redHealthBar.png">
+      <Name>redHealthBar</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Gun Textures\AssaultRifle.png">
+      <Name>AssaultRifle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Gun Textures\Revolver.png">
+      <Name>Revolver</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Player Textures\bob.png">
+      <Name>bob</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -161,6 +175,18 @@
     </Compile>
     <Compile Include="Player Textures\pedro.png">
       <Name>pedro</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Item Textures\ShieldPotion.png">
+      <Name>ShieldPotion</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Item Textures\UsingShieldPotion.png">
+      <Name>UsingShieldPotion</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

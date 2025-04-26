@@ -23,9 +23,12 @@ namespace Final_Game
 
         public List<Gun> weapons;
         public int weaponSpawnTimer;
-        public int weaponBobTimer;
+        int weaponDespawnTimer;
+        List<int> weaponDespawnTimers;
 
         public Player[] playerArr;
+
+        public List<int> possibleWeaponSpawnCords;
 
         public Level(IServiceProvider _content, string levelID, string platformSelector, Player[] players)
         {
@@ -35,24 +38,97 @@ namespace Final_Game
             weapons = new List<Gun>();
             rand = new Random();
             playerArr = players;
+            weaponDespawnTimers = new List<int>();
+/*            possibleWeaponSpawnCords = spawnCords;*/
         }
 
         public void Update()
         {
             weaponSpawnTimer++;
-            weaponBobTimer++;
 
+            // Updating each weapon
             foreach (Gun weapon in weapons)
-                weapon.Update(weaponBobTimer, playerArr);
+                weapon.Update(playerArr, tiles);
 
+
+            // Incrementing weapon despawn timers
+            for (int i = 0; i < weaponDespawnTimers.Count(); i++)
+            {
+                if (!weapons[i].pickedUp)
+                    weaponDespawnTimers[i]++;
+            }
+
+            // Allowing all players to shoot
             foreach (Player p in playerArr)
             {
                 if (p.pewpew != null)
                     p.pewpew.Shoot();
             }
 
+            // Spawning weapons after a certain amount of time
             if (weaponSpawnTimer % 200 == 0)
-                weapons.Add(new Rifle(this.content.Load<Texture2D>("Gun Textures/basic"), this.content.Load<Texture2D>("Gun Textures/bullet"), 20, new Rectangle(rand.Next(0, 500), 500, 15, 10)));
+            {
+                Texture2D bullet = this.content.Load<Texture2D>("Gun Textures/bullet");
+                int num = rand.Next(1, 2);
+                switch (num)
+                {
+                    case 0:
+                        weapons.Add(
+                            new Rifle(
+                                this.content.Load<Texture2D>("Gun Textures/AssaultRifle"), 
+                                bullet, 
+                                20, new Rectangle(rand.Next(0, config.screenW), 20, 32, 16)));
+                        break;
+                    case 1:
+                        weapons.Add(
+                            new Revolver(
+                                this.content.Load<Texture2D>("Gun Textures/Revolver"),
+                                bullet,
+                                5,
+                                new Rectangle(rand.Next(0, config.screenW), 20, 32, 16)));
+                        break;
+                                
+                }
+                
+                weaponDespawnTimers.Add(0);
+            }
+
+            // Despawning weapons after a certain amount of time
+            for (int i = weaponDespawnTimers.Count() - 1; i >= 0; i--)
+            {
+                if (weaponDespawnTimers[i] > 300 && !weapons[i].pickedUp)
+                {
+                    weapons.RemoveAt(i);
+                    weaponDespawnTimers.RemoveAt(i);
+                }
+            }
+
+            CheckBulletCollisions();
+        }
+
+        public void CheckBulletCollisions()
+        {
+            foreach (Player target in playerArr)
+            {
+                foreach (Player shooter in playerArr)
+                {
+                    if (shooter.pewpew == null) continue;
+
+                    for (int i = shooter.pewpew.bullets.Count - 1; i >= 0; i--)
+                    {
+                        Bullet b = shooter.pewpew.bullets[i];
+
+                        if (b.rect.Intersects(target.rect) && target.pIndex != b.pIndex)
+                        {
+                            // Apply damage
+                            target.takeDamage();
+
+                            // Remove bullet
+                            shooter.pewpew.bullets.RemoveAt(i);
+                        }
+                    }
+                }
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -60,7 +136,7 @@ namespace Final_Game
             foreach (Tile tile in tiles)
             {
                 if (tile != null)
-                    spriteBatch.Draw(tile.tex, tile.rec, Color.White);
+                    spriteBatch.Draw(tile.tex, tile.rec, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0f);
             }
 
             foreach (Gun weapon in weapons)

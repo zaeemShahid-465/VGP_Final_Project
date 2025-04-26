@@ -32,7 +32,6 @@ namespace Final_Game
 
 
         //Constants
-        private float gravity;
         private int playerIndex;
         public PlayerIndex pIndex;
 
@@ -61,6 +60,7 @@ namespace Final_Game
         public int lives;
         private Rectangle redHealthBar;
         private Rectangle greenHealthBar;
+        Texture2D redHealthTex, greenHealthTex;
 
         //Shield
         public int shield;
@@ -78,17 +78,16 @@ namespace Final_Game
 
 
 
-        public Player(List<Texture2D> textures, Texture2D basic, Vector2 pos, int playerIndex, float screenHeight, int index)
+        public Player(List<Texture2D> textures, Texture2D basic, Texture2D green, Texture2D red, Vector2 pos, int playerIndex, float screenHeight, int index)
         {
 
             this.justLanded = false;
             this.rect = new Rectangle((int)pos.X, (int)pos.Y, 24 * 3, 18 * 5);
             this.playerIndex = playerIndex;
-            gravity = 1;
             grounded = false;
             this.screenHeight = screenHeight;
             velocity = new Vector2(0, 0);
-            speed = 5;
+            speed = 4;
             jumpCount = 0;
             jumpTime = 0;
             health = 50;
@@ -104,6 +103,8 @@ namespace Final_Game
             dashTime = 0;
             hasItem = false;
             this.basic = basic;
+            redHealthTex = red;
+            greenHealthTex = green;
 
             animationTimer = 0;
             lives = 3;
@@ -223,7 +224,7 @@ namespace Final_Game
                     Tile tile = level.tiles[i, j];
                     if (tile != null && !tile.passable && tile.rec.Intersects(newBounds))
                     {
-                        Vector2 depth = GetIntersectionDepth(newBounds, tile.rec);
+                        Vector2 depth = config.GetIntersectionDepth(newBounds, tile.rec);
 
                         if (Math.Abs(depth.Y) < Math.Abs(depth.X))
                         {
@@ -252,34 +253,6 @@ namespace Final_Game
             }
         }
 
-        private Vector2 GetIntersectionDepth(Rectangle rectA, Rectangle rectB)
-        {
-            Vector2 centerA = new Vector2(rectA.Center.X, rectA.Center.Y);
-            Vector2 centerB = new Vector2(rectB.Center.X, rectB.Center.Y);
-            float distanceX = centerA.X - centerB.X;
-            float distanceY = centerA.Y - centerB.Y;
-            float minDistanceX = (rectA.Width + rectB.Width) / 2f;
-            float minDistanceY = (rectA.Height + rectB.Height) / 2f;
-
-            if (Math.Abs(distanceX) >= minDistanceX || Math.Abs(distanceY) >= minDistanceY)
-                return Vector2.Zero;
-
-            float depthX;
-            if (distanceX > 0)
-                depthX = minDistanceX - distanceX;
-            else
-                depthX = -minDistanceX - distanceX;
-
-            float depthY;
-            if (distanceY > 0)
-                depthY = minDistanceY - distanceY;
-            else
-                depthY = -minDistanceY - distanceY;
-
-
-            return new Vector2(depthX, depthY);
-        }
-        
         
 /*        // Gets a list of all bullets you have fired.
         public List<Bullet> Bullets()
@@ -355,8 +328,8 @@ https://www.desmos.com/calculator
 
             redHealthBar.X = this.rect.X + 10;
             redHealthBar.Y = this.rect.Y - 20;
-            greenHealthBar.X = this.rect.X + 10;
-            greenHealthBar.Y = this.rect.Y - 20;
+            greenHealthBar.X = redHealthBar.X;
+            greenHealthBar.Y = redHealthBar.Y;
 
             redShieldBar.X = this.rect.X + 10;
             redShieldBar.Y = this.rect.Y - 35;
@@ -385,12 +358,58 @@ https://www.desmos.com/calculator
         // Take Damage
         public void takeDamage()
         {
-            greenHealthBar.Width -= 10;
-            health -= 10;
-            if (health < 0)
-                health = 0;
-            if (greenHealthBar.Width < 0)
-                greenHealthBar.Width = 0;
+            int damage = 10; // assuming you always deal 10 damage at a time
+
+            if (shield > 0)
+            {
+                shield -= damage;
+                blueShieldBar.Width -= (int)((damage / 100.0) * redShieldBar.Width);
+
+                if (shield < 0)
+                {
+                    // leftover damage
+                    int leftoverDamage = -shield;
+                    shield = 0;
+
+                    // Apply leftover damage to health
+                    health -= leftoverDamage;
+                    greenHealthBar.Width -= (int)((leftoverDamage / 100.0) * redHealthBar.Width);
+
+                    if (health < 0)
+                        health = 0;
+                    if (greenHealthBar.Width < 0)
+                        greenHealthBar.Width = 0;
+                }
+            }
+            else
+            {
+                health -= damage;
+                greenHealthBar.Width -= (int)((damage / 100.0) * redHealthBar.Width);
+
+                if (health < 0)
+                    health = 0;
+                if (greenHealthBar.Width < 0)
+                    greenHealthBar.Width = 0;
+            }
+
+            /*if (shield < 0)
+            {
+                greenHealthBar.Width -= 10;
+                health -= 10;
+                if (health < 0)
+                    health = 0;
+                if (greenHealthBar.Width < 0)
+                    greenHealthBar.Width = 0;
+            }
+            else
+            {
+                blueShieldBar.Width -= 10;
+                shield -= 10;
+                if (shield < 0)
+                    shield = 0;
+                if (blueShieldBar.Width < 0)
+                    blueShieldBar.Width = 0;
+            }*/
         }
         // Horizontal Movment
         public void horizontalMove()
@@ -457,9 +476,8 @@ https://www.desmos.com/calculator
         // Apply Gravity
         public void Gravity()
         {
-            // To be reworked to work with tiles
             if (!isOnGround)
-                velocity.Y += (int)gravity;
+                velocity.Y += (int)config.gravity;
 
             if (this.rect.Y >= this.screenHeight - rect.Height)
             {
@@ -483,6 +501,7 @@ https://www.desmos.com/calculator
             {
                 greenHealthBar.Width = 50;
             }
+
         }
 
         //Gradually adds shield to player until it's 100
@@ -505,16 +524,16 @@ https://www.desmos.com/calculator
         {
             if (playerDir == PlayerDir.walk_left || playerDir == PlayerDir.idle_left)
             {
-                spriteBatch.Draw(texture, rect, source_rect, Color.White, 0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
+                spriteBatch.Draw(texture, rect, source_rect, Color.White, 0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0.5f);
             }
             else
             {
-                spriteBatch.Draw(texture, rect, source_rect, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0);
+                spriteBatch.Draw(texture, rect, source_rect, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.5f);
             }
-            spriteBatch.Draw(basic, redHealthBar, Color.Red);
-            spriteBatch.Draw(basic, greenHealthBar, Color.Green);
-            spriteBatch.Draw(basic, redShieldBar, Color.Red);
-            spriteBatch.Draw(basic, blueShieldBar, Color.Blue);
+            spriteBatch.Draw(redHealthTex, redHealthBar, null, Color.Red, 0f, Vector2.Zero, SpriteEffects.None, 0.2f);
+            spriteBatch.Draw(greenHealthTex, greenHealthBar, null, Color.Green, 0f, Vector2.Zero, SpriteEffects.None, 0.1f);
+            spriteBatch.Draw(basic, redShieldBar, null, Color.Red, 0f, Vector2.Zero, SpriteEffects.None, 0.2f);
+            spriteBatch.Draw(basic, blueShieldBar, null, Color.Blue, 0f, Vector2.Zero, SpriteEffects.None, 0.1f);
         }
     }
 }

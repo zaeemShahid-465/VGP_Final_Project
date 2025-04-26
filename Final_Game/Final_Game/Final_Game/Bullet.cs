@@ -19,7 +19,7 @@ namespace Final_Game
         public Texture2D texture;
 
         // Player info
-        PlayerIndex pIndex;
+        public PlayerIndex pIndex;
 
         public Bullet(Vector2 dir, Rectangle rect, Texture2D texture, PlayerIndex index)
         {
@@ -45,6 +45,7 @@ namespace Final_Game
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, rect, Color.Yellow);
+            spriteBatch.Draw(texture, rect, null, Color.Yellow, 0f, Vector2.Zero, SpriteEffects.None, 0f);
         }
     }
 }
