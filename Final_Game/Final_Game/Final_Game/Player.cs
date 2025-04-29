@@ -373,12 +373,20 @@ namespace Final_Game
         // Take Damage
         public void takeDamage()
         {
-            greenHealthBar.Width -= 10;
-            health -= 10;
-            if (health < 0)
-                health = 0;
-            if (greenHealthBar.Width < 0)
-                greenHealthBar.Width = 0;
+            if (shield > 0)
+            {
+                blueShieldBar.Width -= 10;
+                shield -= 10;
+            }
+            else
+            {
+                greenHealthBar.Width -= 10;
+                health -= 10;
+                if (health < 0)
+                    health = 0;
+                if (greenHealthBar.Width < 0)
+                    greenHealthBar.Width = 0;
+            }
         }
         // Horizontal Movment
         public void horizontalMove()
