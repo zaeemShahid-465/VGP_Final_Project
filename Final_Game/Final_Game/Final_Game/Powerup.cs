@@ -71,7 +71,7 @@ namespace Final_Game
                 if (!used)
                 {
                     pos.X = currPlayer.rect.X + 30;
-                    pos.Y = currPlayer.rect.Y + 26;
+                    pos.Y = currPlayer.rect.Y + 50;
                     rectangle.Width = 25;
                     rectangle.Height = 25;
                     if (GamePad.GetState(currPlayerIndex).IsButtonDown(Buttons.Y))
@@ -97,7 +97,7 @@ namespace Final_Game
                     {
                         useTimer++;
                         pos.X = currPlayer.rect.X + 28;
-                        pos.Y = currPlayer.rect.Y + 24;
+                        pos.Y = currPlayer.rect.Y + 48;
                     }
                 }
             }
