@@ -16,9 +16,9 @@ namespace Final_Game
         public ShieldPowerUp(int x, int y, Texture2D normalT, Texture2D usedT, Rectangle window) : base(x, y, normalT, usedT, window)
         { }
 
-        public void Update(int timer, Player[] playerArr)
+        public void Update(int timer, Player[] playerArr, Tile[,] map)
         {
-            base.Update(timer, playerArr);
+            base.Update(timer, playerArr, map);
             if (pickedUp)
             {
                 if (!used)

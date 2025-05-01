@@ -15,38 +15,39 @@ namespace Final_Game
     {
         public Rectangle rectangle, window;
         public Texture2D normalT, usedT, currT;
-        public Boolean used, pickedUp;
+        public Boolean used, pickedUp, collidedWithPlatform;
         public Vector2 velocity, pos;
-        public int useTimer;
+        public int useTimer, timer;
         public Player currPlayer;
         public PlayerIndex currPlayerIndex;
 
         public PowerUp(int x, int y, Texture2D normalT, Texture2D usedT, Rectangle window)
         {
-            this.rectangle = new Rectangle(x, y, 30, 30);
+            rectangle = new Rectangle(x, y, 30, 30);
             this.normalT = normalT;
             this.usedT = usedT;
             this.window = window;
             currT = normalT;
             used = false;
             pickedUp = false;
-            velocity = new Vector2(-4, 7);
+            velocity = new Vector2(0, 0);
             pos = new Vector2(rectangle.X, rectangle.Y);
             useTimer = 0;
+            collidedWithPlatform = false;
         }
 
-        public void Update(int timer, Player[] playerArr)
+        public void Update(int timer, Player[] playerArr, Tile[,] map)
         {
+            this.timer = timer;
+
             if (!pickedUp)
             {
-                if (timer % 90 < 45)
-                {
-                    pos.Y -= 0.5f;
-                }
-                else
-                {
-                    pos.Y += 0.5f;
-                }
+                velocity.Y += config.gravity;
+
+                pos.Y += velocity.Y;
+
+                Collide(map);
+
                 for (int i = 0; i < playerArr.Length; i++)
                 {
                     if (playerArr[i].rect.Intersects(rectangle) && !pickedUp && !playerArr[i].hasItem)
@@ -63,6 +64,7 @@ namespace Final_Game
                                 currPlayerIndex = PlayerIndex.Two;
                                 break;
                         }
+                        velocity = new Vector2(-4, 7);
                     }
                 }
             }
@@ -105,6 +107,37 @@ namespace Final_Game
             rectangle.Y = (int)pos.Y;
         }
 
+        public void Collide(Tile[,] map)
+        {
+            collidedWithPlatform = false;
+
+            for (int i = 0; i < map.GetLength(0); i++)
+            {
+                for (int j = 0; j < map.GetLength(1); j++)
+                {
+                    Tile tile = map[i, j];
+                    if (tile == null || tile.passable) continue;
+
+                    if (tile.rec.Intersects(rectangle))
+                    {
+                        Vector2 depth = config.GetIntersectionDepth(rectangle, tile.rec);
+
+                        if (Math.Abs(depth.Y) < Math.Abs(depth.X))
+                        {
+                            // Vertical collision
+                            rectangle.Y += (int)depth.Y;
+                            pos.Y = rectangle.Y;
+                            velocity.Y = 0;
+
+                            // If the gun landed on top of the tile, it's grounded
+                            if (depth.Y < 0)
+                                collidedWithPlatform = true;
+                        }
+                    }
+                }
+            }
+        }
+
         public Boolean IsUsed()
         {
             return used;
@@ -135,7 +168,7 @@ namespace Final_Game
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(currT, rectangle, Color.White);
+            spriteBatch.Draw(currT, new Rectangle(rectangle.X, rectangle.Y - 5, rectangle.Width, rectangle.Height), Color.White);
         }
     }
 }

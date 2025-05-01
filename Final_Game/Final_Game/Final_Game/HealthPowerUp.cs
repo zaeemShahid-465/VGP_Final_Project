@@ -18,9 +18,9 @@ namespace Final_Game
             this.rectangle = new Rectangle(x, y, 35, 35);
         }
 
-        public void Update(int timer, Player[] playerArr)
+        public void Update(int timer, Player[] playerArr, Tile[,] map)
         {
-            base.Update(timer, playerArr);
+            base.Update(timer, playerArr, map);
             if (base.useTimer < 300 && base.useTimer % 6 == 0 && used)
             {
                 currPlayer.heal();

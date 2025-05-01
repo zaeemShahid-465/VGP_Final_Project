@@ -25,10 +25,6 @@ namespace Final_Game
 
         List<Texture2D> playerTextures;
 
-        HealthPowerUp medkit;
-
-        ShieldPowerUp shield;
-
         int screenW, screenH, timer;
 
         // Textures
@@ -73,9 +69,7 @@ namespace Final_Game
             playerArr[0] = new Player(playerTextures, bullet, greenHealth, redHealth, new Vector2(400, 50), 1, screenH, 1);
             playerArr[1] = new Player(playerTextures, bullet, greenHealth, redHealth, new Vector2(400, 100), 2, screenH, 2);
 
-            shield = new ShieldPowerUp(400, 1040, this.Content.Load<Texture2D>("Item Textures/ShieldPotion"), this.Content.Load<Texture2D>("Item Textures/UsingShieldPotion"), new Rectangle(0, 0, screenW, screenH));
             level1 = new Level(Services, "Level1.txt", "StoneTiles", playerArr);
-            medkit = new HealthPowerUp(200, 1040, this.Content.Load<Texture2D>("Item Textures/MedKit"), this.Content.Load<Texture2D>("Item Textures/UsingMedKit"), new Rectangle(0, 0, screenW, screenH));
 
             timer = 0;
 
@@ -122,10 +116,7 @@ namespace Final_Game
                 playerArr[i].Update(playerArr[(i + 1) % 2], level1);
             }
 
-            medkit.Update(timer, playerArr);
             level1.Update();
-
-            shield.Update(timer, playerArr);
 
             timer++;
 
@@ -154,8 +145,6 @@ namespace Final_Game
             {
                 playerArr[i].Draw(spriteBatch);
             }
-            medkit.Draw(spriteBatch);
-            shield.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);
