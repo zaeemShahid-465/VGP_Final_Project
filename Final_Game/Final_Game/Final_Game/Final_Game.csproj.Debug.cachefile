@@ -12,16 +12,16 @@ Content\StoneTiles\1.xnb
 Content\Item Textures\MedKit.xnb
 Content\Item Textures\UsingMedKit.xnb
 Content\Gun Textures\bullet.xnb
+Content\Player Textures\bob.xnb
 Content\Gun Textures\basic.xnb
 Content\Item Textures\ShieldPotion.xnb
 Content\Item Textures\UsingShieldPotion.xnb
-Content\Player Textures\greenHealthBar.xnb
-Content\Player Textures\redHealthBar.xnb
-Content\Gun Textures\AssaultRifle.xnb
-Content\Gun Textures\Revolver.xnb
-Content\Player Textures\bob.xnb
 Content\Player Textures\albert.xnb
 Content\Player Textures\felicia.xnb
 Content\Player Textures\joel.xnb
 Content\Player Textures\pedro.xnb
+Content\Player Textures\greenHealthBar.xnb
+Content\Player Textures\redHealthBar.xnb
+Content\Gun Textures\AssaultRifle.xnb
+Content\Gun Textures\Revolver.xnb
 Content\LevelData\Level1.txt

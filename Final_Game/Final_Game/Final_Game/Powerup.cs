@@ -50,7 +50,7 @@ namespace Final_Game
 
                 for (int i = 0; i < playerArr.Length; i++)
                 {
-                    if (playerArr[i].rect.Intersects(rectangle) && !pickedUp && !playerArr[i].hasItem)
+                    if (playerArr[i].rect.Intersects(rectangle) && !pickedUp && !playerArr[i].hasItem && !playerArr[i].isDead())
                     {
                         PickUp();
                         currPlayer = playerArr[i];
