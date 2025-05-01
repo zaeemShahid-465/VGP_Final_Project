@@ -111,11 +111,6 @@ namespace Final_Game
                 this.Exit();
 
             // TODO: Add your update logic here
-            for (int i = 0; i < playerArr.Length; i++)
-            {
-                playerArr[i].Update(playerArr[(i + 1) % 2], level1);
-            }
-
             level1.Update();
 
             timer++;
@@ -141,10 +136,6 @@ namespace Final_Game
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             level1.Draw(spriteBatch);
-            for (int i = 0; i < playerArr.Length; i++)
-            {
-                playerArr[i].Draw(spriteBatch);
-            }
             spriteBatch.End();
 
             base.Draw(gameTime);

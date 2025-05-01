@@ -60,6 +60,10 @@ namespace Final_Game
             foreach (Gun weapon in weapons)
                 weapon.Update(playerArr, tiles);
 
+            //Updating each player
+            for (int i = 0; i < playerArr.Length; i++)
+                playerArr[i].Update(playerArr[(i + 1) % 2], this);
+
 
             // Incrementing weapon despawn timers
             for (int i = 0; i < weaponDespawnTimers.Count(); i++)
@@ -183,6 +187,11 @@ namespace Final_Game
             foreach (PowerUp powerUp in powerUps)
             {
                 powerUp.Draw(spriteBatch);
+            }
+
+            foreach (Player player in playerArr)
+            {
+                player.Draw(spriteBatch);
             }
         }
 
