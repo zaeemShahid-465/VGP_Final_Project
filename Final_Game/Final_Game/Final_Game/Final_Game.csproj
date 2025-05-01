@@ -85,6 +85,7 @@
     <Compile Include="Rifle.cs" />
     <Compile Include="ShieldPowerUp.cs" />
     <Compile Include="Tile.cs" />
+    <Compile Include="UI.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

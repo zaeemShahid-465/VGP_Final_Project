@@ -27,6 +27,8 @@ namespace Final_Game
 
         int screenW, screenH, timer;
 
+        UI ui;
+
         // Textures
         public Texture2D bullet;
 
@@ -73,6 +75,8 @@ namespace Final_Game
 
             timer = 0;
 
+            ui = new UI(this.Content.Load<Texture2D>("Player Textures/bobPFP"), this.Content.Load<Texture2D>("Player Textures/felicaPFP"));
+
             base.Initialize();
         }
 
@@ -114,6 +118,7 @@ namespace Final_Game
             level1.Update();
 
             timer++;
+            
 
             base.Update(gameTime);
         }
@@ -134,6 +139,7 @@ namespace Final_Game
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            ui.Update(playerArr, spriteBatch);
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             level1.Draw(spriteBatch);
             spriteBatch.End();

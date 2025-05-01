@@ -218,6 +218,11 @@ namespace Final_Game
             animationTimer++;
         }
 
+        public int getLives()
+        {
+            return lives;
+        }
+
         public void HandleCollisions(Level level)
         {
             isOnGround = false;
