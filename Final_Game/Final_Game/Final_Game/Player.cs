@@ -173,8 +173,6 @@ namespace Final_Game
                     playerDir = PlayerDir.idle_left;
                 }
             }
-
-            //Console.WriteLine(playerDir);
         }
 
         public void ChangeTexture()
@@ -358,8 +356,6 @@ https://www.desmos.com/calculator
 
                 capSpeed();
 
-                //Console.WriteLine(jumpTime);
-
                 redHealthBar.X = this.rect.X + 10;
                 redHealthBar.Y = this.rect.Y - 20;
                 greenHealthBar.X = redHealthBar.X;
@@ -467,7 +463,6 @@ https://www.desmos.com/calculator
             {
                 velocity.X = 0;
             }
-            //Console.WriteLine(pad1.ThumbSticks.Left.X);
         }
 
         // Cap Speed

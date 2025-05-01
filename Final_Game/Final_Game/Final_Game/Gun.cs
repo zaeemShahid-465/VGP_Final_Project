@@ -140,7 +140,6 @@ namespace Final_Game
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Console.WriteLine(angle);
             if (angle < -1.5)
                 spriteBatch.Draw(texture, rect, null, Color.White, (float)angle, new Vector2(0, 10), SpriteEffects.FlipVertically, 0f);
             else

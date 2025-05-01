@@ -143,6 +143,16 @@ namespace Final_Game
                 }
             }
 
+            // Despawning powerups after a certain amount of time
+            for (int i = powerUpDespawnTimers.Count() - 1; i >= 0; i--)
+            {
+                if (powerUpDespawnTimers[i] > 300 && !powerUps[i].pickedUp)
+                {
+                    powerUps.RemoveAt(i);
+                    powerUpDespawnTimers.RemoveAt(i);
+                }
+            }
+
             CheckBulletCollisions();
         }
 

@@ -36,7 +36,7 @@ namespace Final_Game
             collidedWithPlatform = false;
         }
 
-        public void Update(int timer, Player[] playerArr, Tile[,] map)
+        public virtual void Update(int timer, Player[] playerArr, Tile[,] map)
         {
             this.timer = timer;
 
