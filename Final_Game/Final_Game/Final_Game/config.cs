@@ -19,6 +19,14 @@ namespace Final_Game
         public static int screenW = tileSize * numTilesHorizontal, screenH = tileSize * numTilesVertical;
         public static int gravity = 1;
 
+        public enum GameState
+        {
+            Menu,
+            level1,
+            level2
+        }
+        public GameState currentState = GameState.Menu;
+
         public static Vector2 GetIntersectionDepth(Rectangle rectA, Rectangle rectB)
         {
             Vector2 centerA = new Vector2(rectA.Center.X, rectA.Center.Y);

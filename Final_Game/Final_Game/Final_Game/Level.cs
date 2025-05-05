@@ -15,7 +15,7 @@ namespace Final_Game
     public class Level : IDisposable
     {
         Random rand;
-        ContentManager content;
+        public ContentManager content;
 
         public Tile[,] tiles;
         int[,] intTiles;
@@ -69,7 +69,7 @@ namespace Final_Game
             if (weaponSpawnTimer % 200 == 0)
             {
                 Texture2D bullet = this.content.Load<Texture2D>("Gun Textures/bullet");
-                int num = rand.Next(1, 2);
+                int num = rand.Next(0, 2);
                 switch (num)
                 {
                     case 0:
