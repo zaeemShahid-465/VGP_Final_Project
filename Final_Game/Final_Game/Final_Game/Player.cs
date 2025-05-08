@@ -91,7 +91,7 @@ namespace Final_Game
             grounded = false;
             this.screenHeight = screenHeight;
             velocity = new Vector2(0, 0);
-            speed = 4;
+            speed = 2;
             jumpCount = 0;
             jumpTime = 0;
             health = 50;

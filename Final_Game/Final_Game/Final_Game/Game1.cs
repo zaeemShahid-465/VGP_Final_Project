@@ -217,8 +217,6 @@ namespace Final_Game
                     {
                         level1.playerArr[i].Draw(spriteBatch);
                     }
-                    medkit.Draw(spriteBatch);
-                    shield.Draw(spriteBatch);
                     break;
                 case GameState.Level2:
                     level2.Draw(spriteBatch);
@@ -248,11 +246,7 @@ namespace Final_Game
                 level1.playerArr[i].Update(level1.playerArr[(i + 1) % 2], level1);
             }
 
-            medkit.Update(timer, level1.playerArr);
             level1.Update();
-
-            shield.Update(timer, level1.playerArr);
-
             timer++;
         }
 
@@ -279,10 +273,8 @@ namespace Final_Game
                     new Vector2(6 * config.tileSize, 50 + i * 50), i + 1, screenH, i + 1);
             }
 
-            shield = new ShieldPowerUp(400, 1040, this.Content.Load<Texture2D>("Item Textures/ShieldPotion"), this.Content.Load<Texture2D>("Item Textures/UsingShieldPotion"), new Rectangle(0, 0, screenW, screenH));
             level1 = new Level(Services, "Level1.txt", "StoneTiles", playerArr);
             level2 = new Level(Services, "Level2.txt", "StoneTiles", playerArr);
-            medkit = new HealthPowerUp(200, 1040, this.Content.Load<Texture2D>("Item Textures/MedKit"), this.Content.Load<Texture2D>("Item Textures/UsingMedKit"), new Rectangle(0, 0, screenW, screenH));
 
             timer = 0;
 
