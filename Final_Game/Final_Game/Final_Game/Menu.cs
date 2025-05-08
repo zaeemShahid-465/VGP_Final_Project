@@ -30,9 +30,25 @@ namespace Final_Game
         Texture2D glitchedHelpTex;
         Texture2D glitchedQuitTex;
 
+        Texture2D titleTex;
+        Texture2D glitchedTitleTex;
+        Rectangle titleLoc;
+
+        Random rand;
+
+        double glitchTimer = 0;
+        double glitchDuration = 0;
+        bool showGlitch = false;
+        double nextGlitchTime = 0;
+
+        float offsetX, offsetY;
+        float rgbSplitOffset = 3f;
+
 
         public Menu(IServiceProvider _content, GameStateManager stateManager)
         {
+            rand = new Random();
+
             content = new ContentManager(_content, "Content");
 
             playButtonTex = content.Load<Texture2D>("PlayButtonTex");
@@ -42,6 +58,12 @@ namespace Final_Game
             glitchedPlayTex = content.Load<Texture2D>("PlayGlitched");
             glitchedHelpTex = content.Load<Texture2D>("ControlsGlitched");
             glitchedQuitTex = content.Load<Texture2D>("QuitGlitched");
+
+            titleTex = content.Load<Texture2D>("TitleTex");
+            glitchedTitleTex = content.Load<Texture2D>("GlitchedTitleTex");
+            titleLoc = new Rectangle(screenW / 2 - 280, 200, 560, 224);
+
+            nextGlitchTime = rand.NextDouble() * 4.0;
 
 
             this.stateManager = stateManager;
@@ -62,9 +84,25 @@ namespace Final_Game
                 new Rectangle(screenW / 2 - 100, screenH / 2 - 40, 200, 80), Color.White, 0f);
         }
 
-        public void Update(GameState gameState)
+        public void Update(GameState gameState, GameTime gTime)
         {
-            
+            glitchTimer += gTime.ElapsedGameTime.TotalSeconds;
+
+            if (!showGlitch && glitchTimer >= nextGlitchTime)
+            {
+                showGlitch = true;
+                glitchDuration = rand.NextDouble() * 0.15 + 0.05;
+                glitchTimer = 0;
+
+                offsetX = rand.Next(-5, 6);
+                offsetY = rand.Next(-3, 4);
+            }
+            else if (showGlitch && glitchTimer >= glitchDuration)
+            {
+                showGlitch = false;
+                glitchTimer = 0;
+                nextGlitchTime = rand.NextDouble() * 1.5 + 0.5;
+            }
 
 
             if (cursor.location.Y == play.location.Y)
@@ -118,7 +156,14 @@ namespace Final_Game
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
+            if (showGlitch)
+            {
+                spriteBatch.Draw(glitchedTitleTex, new Rectangle((int)titleLoc.X + (int)offsetX, (int)titleLoc.Y + (int)offsetY, 560, 224), Color.White);
+            }
+            else
+            {
+                spriteBatch.Draw(titleTex, titleLoc, Color.White);
+            }
             play.Draw(spriteBatch);
             help.Draw(spriteBatch);
             quit.Draw(spriteBatch);

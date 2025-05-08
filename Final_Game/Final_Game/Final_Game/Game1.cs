@@ -19,6 +19,11 @@ namespace Final_Game
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        GamePadState oldPad;
+
+        Texture2D HelpScreenTex;
+        Texture2D backButtonTex;
+
         GameStateManager stateManager;
 
         Menu menu;
@@ -26,6 +31,7 @@ namespace Final_Game
         LevelSelector levelSelector;
 
         Level level1;
+        Level level2;
 
         Player[] playerArr;
 
@@ -62,6 +68,11 @@ namespace Final_Game
         {
             stateManager = new GameStateManager();
             stateManager.changeState(GameState.MainMenu);
+
+            HelpScreenTex = this.Content.Load<Texture2D>("Movement");
+            backButtonTex = this.Content.Load<Texture2D>("backButtonTex");
+
+            oldPad = GamePad.GetState(PlayerIndex.One);
 
             // TODO: Add your initialization logic here
             screenW = config.tileSize * config.numTilesHorizontal;
@@ -121,6 +132,7 @@ namespace Final_Game
         {
             GameState oldState = stateManager.currentState;
             KeyboardState kb = Keyboard.GetState();
+            GamePadState pad = GamePad.GetState(PlayerIndex.One);
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || kb.IsKeyDown(Keys.Escape))
                 this.Exit();
@@ -130,13 +142,20 @@ namespace Final_Game
             switch (stateManager.currentState)
             {
                 case GameState.MainMenu:
-                    menu.Update(stateManager.currentState);
+                    menu.Update(stateManager.currentState, gameTime);
                     break;
                 case GameState.LevelSelector:
                     levelSelector.Update(stateManager.currentState);
                     break;
+                case GameState.HelpScreen:
+                    if (pad.Buttons.B == ButtonState.Pressed && !(oldPad.Buttons.B == ButtonState.Pressed))
+                        stateManager.changeState(GameState.MainMenu);
+                    break;
                 case GameState.Level1:
                     UpdateLevel1();
+                    break;
+                case GameState.Level2:
+                    UpdateLevel2();
                     break;
                 case GameState.Quit:
                     this.Exit();
@@ -155,14 +174,14 @@ namespace Final_Game
                 {
                     levelSelector = new LevelSelector(Services, stateManager);
                 }
-                else if (stateManager.Is(GameState.Level1))
+                else if (stateManager.Is(GameState.Level1) || stateManager.Is(GameState.Level2))
                 {
                     initPlayers(levelSelector.NumPlayers); // <-- call this ONLY when we enter Level1
                 }
             }
 
 
-
+            oldPad = pad;
             base.Update(gameTime);
         }
 
@@ -192,6 +211,10 @@ namespace Final_Game
                 case GameState.LevelSelector:
                     levelSelector.Draw(spriteBatch);
                     break;
+                case GameState.HelpScreen:
+                    spriteBatch.Draw(HelpScreenTex, new Rectangle(0, 0, 1920, 1080), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 1f);
+                    spriteBatch.Draw(backButtonTex, new Rectangle(10, screenH - 100, 200, 80), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.01f);
+                    break;
                 case GameState.Level1:
                     level1.Draw(spriteBatch);
                     for (int i = 0; i < level1.playerArr.Length; i++)
@@ -201,6 +224,15 @@ namespace Final_Game
                     medkit.Draw(spriteBatch);
                     shield.Draw(spriteBatch);
                     break;
+                case GameState.Level2:
+                    level2.Draw(spriteBatch);
+                    for (int i = 0; i < level2.playerArr.Length; i++)
+                    {
+                        level2.playerArr[i].Draw(spriteBatch);
+                    }
+                    break;
+
+
             }
 
 
@@ -228,6 +260,17 @@ namespace Final_Game
             timer++;
         }
 
+        public void UpdateLevel2()
+        {
+            for (int i = 0; i < level2.playerArr.Length; i++)
+            {
+                level2.playerArr[i].Update(level2.playerArr[(i + 1) % 2], level2);
+            }
+
+            level2.Update();
+
+        }
+
         public void initPlayers(int numPlayers)
         {
             playerArr = new Player[numPlayers];
@@ -237,11 +280,12 @@ namespace Final_Game
                 playerArr[i] = new Player(playerTextures, bullet,
                     Content.Load<Texture2D>("Player Textures/greenHealthBar"),
                     Content.Load<Texture2D>("Player Textures/redHealthBar"),
-                    new Vector2(400, 50 + i * 50), i + 1, screenH, i + 1);
+                    new Vector2(6 * config.tileSize, 50 + i * 50), i + 1, screenH, i + 1);
             }
 
             shield = new ShieldPowerUp(400, 1040, this.Content.Load<Texture2D>("Item Textures/ShieldPotion"), this.Content.Load<Texture2D>("Item Textures/UsingShieldPotion"), new Rectangle(0, 0, screenW, screenH));
             level1 = new Level(Services, "Level1.txt", "StoneTiles", playerArr);
+            level2 = new Level(Services, "Level2.txt", "StoneTiles", playerArr);
             medkit = new HealthPowerUp(200, 1040, this.Content.Load<Texture2D>("Item Textures/MedKit"), this.Content.Load<Texture2D>("Item Textures/UsingMedKit"), new Rectangle(0, 0, screenW, screenH));
 
             timer = 0;

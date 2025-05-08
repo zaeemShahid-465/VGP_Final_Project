@@ -64,7 +64,8 @@ namespace Final_Game
             if (!pickedUp)
             {
                 // Apply gravity
-                velocity.Y += config.gravity;
+                if (!collidedWithPlatform)
+                    velocity.Y += config.gravity;
 
                 // Move vertically
                 pos.Y += velocity.Y;

@@ -47,15 +47,15 @@ namespace Final_Game
             this.stateManager = stateManager;
 
             map1 = content.Load<Texture2D>("level1pic");
-            map2 = content.Load<Texture2D>("level1pic");
-            map3 = content.Load<Texture2D>("level1pic");
+            map2 = content.Load<Texture2D>("level2pic");
+            map3 = content.Load<Texture2D>("level2pic");
 
             glitchedMap1 = content.Load<Texture2D>("Map1Glitched");
             glitchedMap2 = content.Load<Texture2D>("Map2Glitched");
             glitchedMap3 = content.Load<Texture2D>("Map3Glitched");
 
             level1 = new Button(
-                content.Load<Texture2D>("Map3Tex"),
+                content.Load<Texture2D>("Map1Tex"),
                 new Rectangle(screenW / 2 - 100, screenH / 2 - 40, 200, 80), Color.White, 0.8f);
             level2 = new Button(
                 content.Load<Texture2D>("Map2Tex"),
