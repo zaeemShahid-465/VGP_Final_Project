@@ -141,7 +141,10 @@ namespace Final_Game
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, rect, null, Color.White, (float)angle, new Vector2(0, 10), SpriteEffects.None, 0.2f);
+            if (angle < -1.5)
+                spriteBatch.Draw(texture, rect, null, Color.White, (float)angle, new Vector2(0, 10), SpriteEffects.FlipVertically, 0.2f);
+            else
+                spriteBatch.Draw(texture, rect, null, Color.White, (float)angle, new Vector2(0, 10), SpriteEffects.None, 0.2f);
             for (int i = 0; i < bullets.Count(); i++)
             {
                 bullets[i].Draw(spriteBatch);

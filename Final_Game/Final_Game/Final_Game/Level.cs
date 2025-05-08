@@ -20,11 +20,13 @@ namespace Final_Game
         public Tile[,] tiles;
         int[,] intTiles;
         string levelID, platformSelector;
+        int timer;
 
         public List<Gun> weapons;
-        public int weaponSpawnTimer;
+        public List<PowerUp> powerUps;
+        public int weaponSpawnTimer, powerUpSpawnTimer;
         int weaponDespawnTimer;
-        List<int> weaponDespawnTimers;
+        List<int> weaponDespawnTimers, powerUpDespawnTimers;
 
         public Player[] playerArr;
 
@@ -36,19 +38,31 @@ namespace Final_Game
             intTiles = new int[config.numTilesVertical, config.numTilesHorizontal];
             LoadMap(levelID, platformSelector);
             weapons = new List<Gun>();
+            powerUps = new List<PowerUp>();
             rand = new Random();
             playerArr = players;
             weaponDespawnTimers = new List<int>();
+            powerUpDespawnTimers = new List<int>();
 /*            possibleWeaponSpawnCords = spawnCords;*/
         }
 
         public void Update()
         {
             weaponSpawnTimer++;
+            powerUpSpawnTimer++;
+            timer++;
+
+            //Updating each power up
+            foreach (PowerUp powerUp in powerUps)
+                powerUp.Update(timer, playerArr, tiles);
 
             // Updating each weapon
             foreach (Gun weapon in weapons)
                 weapon.Update(playerArr, tiles);
+
+            //Updating each player
+            for (int i = 0; i < playerArr.Length; i++)
+                playerArr[i].Update(playerArr[(i + 1) % 2], this);
 
 
             // Incrementing weapon despawn timers
@@ -93,6 +107,32 @@ namespace Final_Game
                 weaponDespawnTimers.Add(0);
             }
 
+            if (powerUpSpawnTimer % 300 == 0)
+            {
+                int num = rand.Next(2);
+                switch (num)
+                {
+                    case 0:
+                        powerUps.Add(
+                            new HealthPowerUp(
+                                rand.Next(0, config.screenW),
+                                20,
+                                this.content.Load<Texture2D>("Item Textures/MedKit"),
+                                this.content.Load<Texture2D>("Item Textures/UsingMedKit"),
+                                new Rectangle(0, 0, config.screenW, config.screenH)));
+                        break;
+                    case 1:
+                        powerUps.Add(
+                            new ShieldPowerUp(
+                                rand.Next(0, config.screenW),
+                                20,
+                                this.content.Load<Texture2D>("Item Textures/ShieldPotion"),
+                                this.content.Load<Texture2D>("Item Textures/UsingShieldPotion"),
+                                new Rectangle(0, 0, config.screenW, config.screenH)));
+                        break;
+                }
+            }
+
             // Despawning weapons after a certain amount of time
             for (int i = weaponDespawnTimers.Count() - 1; i >= 0; i--)
             {
@@ -100,6 +140,16 @@ namespace Final_Game
                 {
                     weapons.RemoveAt(i);
                     weaponDespawnTimers.RemoveAt(i);
+                }
+            }
+
+            // Despawning powerups after a certain amount of time
+            for (int i = powerUpDespawnTimers.Count() - 1; i >= 0; i--)
+            {
+                if (powerUpDespawnTimers[i] > 300 && !powerUps[i].pickedUp)
+                {
+                    powerUps.RemoveAt(i);
+                    powerUpDespawnTimers.RemoveAt(i);
                 }
             }
 
@@ -142,6 +192,16 @@ namespace Final_Game
             foreach (Gun weapon in weapons)
             {
                 weapon.Draw(spriteBatch);
+            }
+
+            foreach (PowerUp powerUp in powerUps)
+            {
+                powerUp.Draw(spriteBatch);
+            }
+
+            foreach (Player player in playerArr)
+            {
+                player.Draw(spriteBatch);
             }
         }
 

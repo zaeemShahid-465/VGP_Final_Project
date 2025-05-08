@@ -37,10 +37,6 @@ namespace Final_Game
 
         List<Texture2D> playerTextures;
 
-        HealthPowerUp medkit;
-
-        ShieldPowerUp shield;
-
         int screenW, screenH, timer;
 
         // Textures

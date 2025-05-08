@@ -58,6 +58,8 @@ namespace Final_Game
         // Health
         public int health;
         public int lives;
+        bool dead;
+        bool permDead;
         private Rectangle redHealthBar;
         private Rectangle greenHealthBar;
         Texture2D redHealthTex, greenHealthTex;
@@ -71,6 +73,8 @@ namespace Final_Game
 
         int randTimer;
 
+        int deadTimer;
+
         public Gun pewpew;
 
         //Items
@@ -80,7 +84,7 @@ namespace Final_Game
 
         public Player(List<Texture2D> textures, Texture2D basic, Texture2D green, Texture2D red, Vector2 pos, int playerIndex, float screenHeight, int index)
         {
-
+            dead = false;
             this.justLanded = false;
             this.rect = new Rectangle((int)pos.X, (int)pos.Y, 24 * 3, 18 * 5);
             this.playerIndex = playerIndex;
@@ -108,6 +112,8 @@ namespace Final_Game
 
             animationTimer = 0;
             lives = 3;
+            deadTimer = 0;
+            permDead = false;
 
             this.source_rect = new Rectangle(0, 6, 24, 24);
 
@@ -167,8 +173,6 @@ namespace Final_Game
                     playerDir = PlayerDir.idle_left;
                 }
             }
-
-            //Console.WriteLine(playerDir);
         }
 
         public void ChangeTexture()
@@ -284,64 +288,101 @@ https://www.desmos.com/calculator
         public void Die()
         {
             lives--;
-            if (lives == 0)
+            deadTimer = 0;
+            if (lives < 0)
             {
-
+                permDead = true;
+            }
+            dead = true;
+        }
+        public bool isDead()
+        {
+            return dead;
+        }
+        public void Revive()
+        {
+            if (!permDead)
+            {
+                health = 100;
+                greenHealthBar.Width = 50;
+                rect.Y = 50;
+                Random rand = new Random();
+                rect.X = rand.Next(50, config.screenW - 50);
+                dead = false;
+                isOnGround = false;
+                deadTimer = 0;
             }
         }
+
         public void Update(Player x, Level l)
         {
-            gameTimer++;
-            randTimer++;
 
-            GamePadState pad1 = GamePad.GetState(pIndex);
-            if (pad1.ThumbSticks.Right.Length() != 0)
+            if (health <= 0 && !dead)
             {
-                angle = Math.Atan2(pad1.ThumbSticks.Right.X, pad1.ThumbSticks.Right.Y) - Math.PI / 2;
+                Die();
             }
-
-/*            getEnemyBullets(x);*/
-            horizontalMove();
-            Jump();
-
-            this.rect.X += (int)velocity.X;
-            this.rect.Y += (int)velocity.Y;
-
-            HandleCollisions(l);
-            decideTexture();
-            ChangeTexture();
-
-            Gravity();
-
-            if (pad1.IsButtonDown(Buttons.X) && dashTimer >= 180 && !isOnGround)
+            if (!dead)
             {
-                dash();
+                gameTimer++;
+                randTimer++;
+
+                GamePadState pad1 = GamePad.GetState(pIndex);
+                if (pad1.ThumbSticks.Right.Length() != 0)
+                {
+                    angle = Math.Atan2(pad1.ThumbSticks.Right.X, pad1.ThumbSticks.Right.Y) - Math.PI / 2;
+                }
+
+                /*            getEnemyBullets(x);*/
+                horizontalMove();
+                Jump();
+
+                this.rect.X += (int)velocity.X;
+                this.rect.Y += (int)velocity.Y;
+
+                HandleCollisions(l);
+                decideTexture();
+                ChangeTexture();
+
+                Gravity();
+
+                if (pad1.IsButtonDown(Buttons.X) && dashTimer >= 180 && !isOnGround)
+                {
+                    dash();
+                }
+                if (dashTime >= 30)
+                {
+                    dashing = false;
+                }
+
+                capSpeed();
+
+                redHealthBar.X = this.rect.X + 10;
+                redHealthBar.Y = this.rect.Y - 20;
+                greenHealthBar.X = redHealthBar.X;
+                greenHealthBar.Y = redHealthBar.Y;
+
+                redShieldBar.X = this.rect.X + 10;
+                redShieldBar.Y = this.rect.Y - 35;
+                blueShieldBar.X = this.rect.X + 10;
+                blueShieldBar.Y = this.rect.Y - 35;
+
+                jumpTime++;
+                dashTimer++;
+                dashTime++;
+
+                KeyboardState keyState = Keyboard.GetState();
             }
-            if (dashTime >= 30)
+            else
             {
-                dashing = false;
+                deadTimer++;
+                rect.Y += 15;
             }
-
-            capSpeed();
-
-            //Console.WriteLine(jumpTime);
-
-            redHealthBar.X = this.rect.X + 10;
-            redHealthBar.Y = this.rect.Y - 20;
-            greenHealthBar.X = redHealthBar.X;
-            greenHealthBar.Y = redHealthBar.Y;
-
-            redShieldBar.X = this.rect.X + 10;
-            redShieldBar.Y = this.rect.Y - 35;
-            blueShieldBar.X = this.rect.X + 10;
-            blueShieldBar.Y = this.rect.Y - 35;
-
-            jumpTime++;
-            dashTimer++;
-            dashTime++;
-
-            KeyboardState keyState = Keyboard.GetState();
-
+            if (deadTimer >= 60*5)
+            {
+                
+                Revive();
+            }
+                
 
         }
 
@@ -422,7 +463,6 @@ https://www.desmos.com/calculator
             {
                 velocity.X = 0;
             }
-            //Console.WriteLine(pad1.ThumbSticks.Left.X);
         }
 
         // Cap Speed
@@ -522,7 +562,11 @@ https://www.desmos.com/calculator
         // Draw everything the player has
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (playerDir == PlayerDir.walk_left || playerDir == PlayerDir.idle_left)
+            if(dead)
+            {
+                spriteBatch.Draw(texture, rect, source_rect, Color.Red, MathHelper.ToRadians(180), Vector2.Zero, SpriteEffects.None, 0.5f);
+            }
+            else if (playerDir == PlayerDir.walk_left || playerDir == PlayerDir.idle_left)
             {
                 spriteBatch.Draw(texture, rect, source_rect, Color.White, 0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0.5f);
             }
@@ -530,10 +574,13 @@ https://www.desmos.com/calculator
             {
                 spriteBatch.Draw(texture, rect, source_rect, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.5f);
             }
-            spriteBatch.Draw(redHealthTex, redHealthBar, null, Color.Red, 0f, Vector2.Zero, SpriteEffects.None, 0.2f);
-            spriteBatch.Draw(greenHealthTex, greenHealthBar, null, Color.Green, 0f, Vector2.Zero, SpriteEffects.None, 0.1f);
-            spriteBatch.Draw(basic, redShieldBar, null, Color.Red, 0f, Vector2.Zero, SpriteEffects.None, 0.2f);
-            spriteBatch.Draw(basic, blueShieldBar, null, Color.Blue, 0f, Vector2.Zero, SpriteEffects.None, 0.1f);
+            if (!dead)
+            {
+                spriteBatch.Draw(redHealthTex, redHealthBar, null, Color.Red, 0f, Vector2.Zero, SpriteEffects.None, 0.2f);
+                spriteBatch.Draw(greenHealthTex, greenHealthBar, null, Color.Green, 0f, Vector2.Zero, SpriteEffects.None, 0.1f);
+                spriteBatch.Draw(basic, redShieldBar, null, Color.Red, 0f, Vector2.Zero, SpriteEffects.None, 0.2f);
+                spriteBatch.Draw(basic, blueShieldBar, null, Color.Blue, 0f, Vector2.Zero, SpriteEffects.None, 0.1f);
+            }
         }
     }
 }
