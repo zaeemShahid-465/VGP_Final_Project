@@ -72,10 +72,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bullet.cs" />
+    <Compile Include="Button.cs" />
     <Compile Include="config.cs" />
+    <Compile Include="GameStateManager.cs" />
     <Compile Include="Gun.cs" />
     <Compile Include="HealthPowerUp.cs" />
     <Compile Include="Level.cs" />
+    <Compile Include="LevelSelector.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PowerUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
