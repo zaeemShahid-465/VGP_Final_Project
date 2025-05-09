@@ -14,7 +14,10 @@ namespace Final_Game
     public class ShieldPowerUp : PowerUp
     {
         public ShieldPowerUp(int x, int y, Texture2D normalT, Texture2D usedT, Rectangle window) : base(x, y, normalT, usedT, window)
-        { }
+        {
+            this.pickedUpOffset = new Vector2(8, 30);
+            this.usingOffset = new Vector2(8, 30);
+        }
 
         public override void Update(int timer, Player[] playerArr, Tile[,] map)
         {
@@ -23,8 +26,6 @@ namespace Final_Game
             {
                 if (!used)
                 {
-                    rectangle.X += 4;
-                    rectangle.Y += 6;
                     rectangle.Width = 20;
                     rectangle.Height = 20;
                 }
@@ -32,10 +33,6 @@ namespace Final_Game
                 {
                     rectangle.Width = 35;
                     rectangle.Height = 35;
-                    if (useTimer != 300)
-                    {
-                        rectangle.Y -= 9;
-                    }
                     if (base.useTimer < 300 && base.useTimer % 6 == 0 && used)
                     {
                         currPlayer.healShield();
