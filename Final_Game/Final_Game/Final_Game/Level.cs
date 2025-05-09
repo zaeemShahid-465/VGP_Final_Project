@@ -109,27 +109,36 @@ namespace Final_Game
 
             if (powerUpSpawnTimer % 300 == 0)
             {
-                int num = rand.Next(2);
-                switch (num)
+                int num = rand.Next(100);
+                if (num < 45)
                 {
-                    case 0:
-                        powerUps.Add(
-                            new HealthPowerUp(
-                                rand.Next(0, config.screenW),
-                                20,
-                                this.content.Load<Texture2D>("Item Textures/MedKit"),
-                                this.content.Load<Texture2D>("Item Textures/UsingMedKit"),
-                                new Rectangle(0, 0, config.screenW, config.screenH)));
-                        break;
-                    case 1:
-                        powerUps.Add(
-                            new ShieldPowerUp(
-                                rand.Next(0, config.screenW),
-                                20,
-                                this.content.Load<Texture2D>("Item Textures/ShieldPotion"),
-                                this.content.Load<Texture2D>("Item Textures/UsingShieldPotion"),
-                                new Rectangle(0, 0, config.screenW, config.screenH)));
-                        break;
+                    powerUps.Add(
+                        new HealthPowerUp(
+                            rand.Next(0, config.screenW),
+                            20,
+                            this.content.Load<Texture2D>("Item Textures/MedKit"),
+                            this.content.Load<Texture2D>("Item Textures/UsingMedKit"),
+                            new Rectangle(0, 0, config.screenW, config.screenH)));
+                }
+                else if (num >= 45 && num < 90)
+                {
+                    powerUps.Add(
+                        new ShieldPowerUp(
+                            rand.Next(0, config.screenW),
+                            20,
+                            this.content.Load<Texture2D>("Item Textures/ShieldPotion"),
+                            this.content.Load<Texture2D>("Item Textures/UsingShieldPotion"),
+                            new Rectangle(0, 0, config.screenW, config.screenH)));
+                }
+                else if (num >= 90)
+                {
+                    powerUps.Add(
+                        new BakerBlastPowerUp(
+                            rand.Next(0, config.screenW),
+                            20,
+                            this.content.Load<Texture2D>("Item Textures/infinityGauntlet"),
+                            this.content.Load<Texture2D>("Item Textures/noStonesGauntlet"),
+                            new Rectangle(0, 0, config.screenW, config.screenH)));
                 }
             }
 

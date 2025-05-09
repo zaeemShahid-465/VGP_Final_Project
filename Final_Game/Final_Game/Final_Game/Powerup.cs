@@ -16,7 +16,7 @@ namespace Final_Game
         public Rectangle rectangle, window;
         public Texture2D normalT, usedT, currT;
         public Boolean used, pickedUp, collidedWithPlatform;
-        public Vector2 velocity, pos;
+        public Vector2 velocity, pos, pickedUpOffset, usingOffset;
         public int useTimer, timer;
         public Player currPlayer;
         public PlayerIndex currPlayerIndex;
@@ -72,8 +72,8 @@ namespace Final_Game
             {
                 if (!used)
                 {
-                    pos.X = currPlayer.rect.X + 30;
-                    pos.Y = currPlayer.rect.Y + 50;
+                    pos.X = currPlayer.rect.X + pickedUpOffset.X;
+                    pos.Y = currPlayer.rect.Y + pickedUpOffset.Y;
                     rectangle.Width = 25;
                     rectangle.Height = 25;
                     if (GamePad.GetState(currPlayerIndex).IsButtonDown(Buttons.Y))
@@ -98,8 +98,8 @@ namespace Final_Game
                     else
                     {
                         useTimer++;
-                        pos.X = currPlayer.rect.X + 28;
-                        pos.Y = currPlayer.rect.Y + 48;
+                        pos.X = currPlayer.rect.X + usingOffset.X;
+                        pos.Y = currPlayer.rect.Y + usingOffset.Y;
                     }
                 }
             }

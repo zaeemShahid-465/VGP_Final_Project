@@ -71,6 +71,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BakerBlastPowerUp.cs" />
     <Compile Include="Bullet.cs" />
     <Compile Include="config.cs" />
     <Compile Include="Gun.cs" />

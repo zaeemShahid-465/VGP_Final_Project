@@ -23,8 +23,8 @@ namespace Final_Game
             {
                 if (!used)
                 {
-                    rectangle.X += 6;
-                    rectangle.Y += 4;
+                    rectangle.X += 4;
+                    rectangle.Y += 6;
                     rectangle.Width = 20;
                     rectangle.Height = 20;
                 }

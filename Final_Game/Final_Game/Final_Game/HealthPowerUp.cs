@@ -16,6 +16,8 @@ namespace Final_Game
         public HealthPowerUp(int x, int y, Texture2D normalT, Texture2D usedT, Rectangle window) : base(x, y, normalT, usedT, window)
         {
             this.rectangle = new Rectangle(x, y, 35, 35);
+            this.pickedUpOffset = new Vector2(30, 50);
+            this.usingOffset = new Vector2(28, 48);
         }
 
         public override void Update(int timer, Player[] playerArr, Tile[,] map)
