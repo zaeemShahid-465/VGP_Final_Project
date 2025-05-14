@@ -80,9 +80,11 @@ namespace Final_Game
         //Items
         public Boolean hasItem;
 
+        Texture2D reloadTex;
 
 
-        public Player(List<Texture2D> textures, Texture2D basic, Texture2D green, Texture2D red, Vector2 pos, int playerIndex, float screenHeight, int index)
+
+        public Player(List<Texture2D> textures, Texture2D basic, Texture2D green, Texture2D red, Vector2 pos, int playerIndex, float screenHeight, int index, Texture2D reloadTex)
         {
             dead = false;
             this.justLanded = false;
@@ -91,7 +93,7 @@ namespace Final_Game
             grounded = false;
             this.screenHeight = screenHeight;
             velocity = new Vector2(0, 0);
-            speed = 2;
+            speed = 8;
             jumpCount = 0;
             jumpTime = 0;
             health = 50;
@@ -116,6 +118,8 @@ namespace Final_Game
             permDead = false;
 
             this.source_rect = new Rectangle(0, 6, 24, 24);
+
+            this.reloadTex = reloadTex;
 
 
             // Sets Controller Index
@@ -335,6 +339,7 @@ https://www.desmos.com/calculator
                 /*            getEnemyBullets(x);*/
                 horizontalMove();
                 Jump();
+                Gravity();
 
                 this.rect.X += (int)velocity.X;
                 this.rect.Y += (int)velocity.Y;
@@ -343,7 +348,6 @@ https://www.desmos.com/calculator
                 decideTexture();
                 ChangeTexture();
 
-                Gravity();
 
                 if (pad1.IsButtonDown(Buttons.X) && dashTimer >= 180 && !isOnGround)
                 {
@@ -457,7 +461,7 @@ https://www.desmos.com/calculator
         {
             GamePadState pad1 = GamePad.GetState(pIndex);
 
-            velocity.X += pad1.ThumbSticks.Left.X * speed;
+            velocity.X = pad1.ThumbSticks.Left.X * speed;
             // If not dashing and not moving stick set speed to zero
             if (pad1.ThumbSticks.Left.Length() == 0 && !dashing)
             {
@@ -581,6 +585,8 @@ https://www.desmos.com/calculator
                 spriteBatch.Draw(basic, redShieldBar, null, Color.Red, 0f, Vector2.Zero, SpriteEffects.None, 0.2f);
                 spriteBatch.Draw(basic, blueShieldBar, null, Color.Blue, 0f, Vector2.Zero, SpriteEffects.None, 0.1f);
             }
+            if (this.pewpew != null && this.pewpew.reloading && this.pewpew.pickedUp)
+                spriteBatch.Draw(reloadTex, new Rectangle(rect.X, rect.Y, 30, 30), Color.White);
         }
     }
 }

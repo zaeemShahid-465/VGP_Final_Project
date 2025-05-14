@@ -14,7 +14,7 @@ namespace Final_Game
     class Revolver : Gun
     {
         GamePadState oldPadState;
-        public Revolver(Texture2D Texture, Texture2D basic, int ammo, Rectangle rec) : base(Texture, basic, ammo, rec)
+        public Revolver(Texture2D Texture, Texture2D basic, int ammo, Rectangle rec, Level l) : base(Texture, basic, ammo, rec, l)
         {
             oldPadState = GamePad.GetState(base.pIndex);
         }

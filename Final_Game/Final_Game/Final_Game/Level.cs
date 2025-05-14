@@ -91,7 +91,7 @@ namespace Final_Game
                             new Rifle(
                                 this.content.Load<Texture2D>("Gun Textures/AssaultRifle"), 
                                 bullet, 
-                                20, new Rectangle(rand.Next(0, config.screenW), 20, 32, 16)));
+                                20, new Rectangle(rand.Next(0, config.screenW), 20, 32, 16), this));
                         break;
                     case 1:
                         weapons.Add(
@@ -99,7 +99,7 @@ namespace Final_Game
                                 this.content.Load<Texture2D>("Gun Textures/Revolver"),
                                 bullet,
                                 5,
-                                new Rectangle(rand.Next(0, config.screenW), 20, 32, 16)));
+                                new Rectangle(rand.Next(0, config.screenW), 20, 32, 16), this));
                         break;
                                 
                 }

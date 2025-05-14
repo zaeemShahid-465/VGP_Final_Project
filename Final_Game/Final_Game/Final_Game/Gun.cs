@@ -17,6 +17,7 @@ namespace Final_Game
         public Vector2 pos;
         public bool collidedWithPlatform;
         Vector2 velocity;
+        Texture2D reloadTex;
 
         // Shooting
         public double angle;
@@ -25,6 +26,7 @@ namespace Final_Game
         private int capacity;
         private int reloadTimer;
         public Texture2D basic;
+        public bool reloading;
 
         // Info about gun's parent player
         public Vector2 playerVel;
@@ -32,7 +34,7 @@ namespace Final_Game
         public PlayerIndex pIndex;
         public Player currPlayer;
 
-        public Gun(Texture2D Texture, Texture2D basic, int ammo, Rectangle rec)
+        public Gun(Texture2D Texture, Texture2D basic, int ammo, Rectangle rec, Level sampleLevel)
         {
             velocity = new Vector2(0, 0);
             this.rect = rec;
@@ -48,7 +50,10 @@ namespace Final_Game
             this.basic = basic;
             pickedUp = false;
             collidedWithPlatform = false;
+            reloadTex = sampleLevel.content.Load<Texture2D>("reload");
+            reloading = false;
         }
+
 
         public void AssignOwner(Player p)
         {
@@ -156,6 +161,7 @@ namespace Final_Game
             GamePadState pad1 = GamePad.GetState(pIndex);
             if (pad1.IsButtonDown(Buttons.B) || reloadTimer != 0)
             {
+                reloading = true;
                 reloadTimer++;
                 if (reloadTimer >= 180)
                 {
@@ -163,6 +169,8 @@ namespace Final_Game
                     reloadTimer = 0;
                 }
             }
+            else
+                reloading = false;
         }
     }
 }

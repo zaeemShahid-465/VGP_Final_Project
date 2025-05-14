@@ -13,7 +13,7 @@ namespace Final_Game
 {
     class Rifle : Gun
     {
-        public Rifle(Texture2D Texture, Texture2D basic, int ammo, Rectangle rec) : base(Texture, basic, ammo, rec)
+        public Rifle(Texture2D Texture, Texture2D basic, int ammo, Rectangle rec, Level l) : base(Texture, basic, ammo, rec, l)
         {
 
         }

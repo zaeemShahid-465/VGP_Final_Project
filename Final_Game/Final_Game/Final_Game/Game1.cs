@@ -30,7 +30,7 @@ namespace Final_Game
 
         LevelSelector levelSelector;
 
-        Level level1;
+        public Level level1;
         Level level2;
 
         Player[] playerArr;
@@ -264,13 +264,14 @@ namespace Final_Game
         public void initPlayers(int numPlayers)
         {
             playerArr = new Player[numPlayers];
+            Texture2D reloadTex = this.Content.Load<Texture2D>("reload");
 
             for (int i = 0; i < numPlayers; i++)
             {
                 playerArr[i] = new Player(playerTextures, bullet,
                     Content.Load<Texture2D>("Player Textures/greenHealthBar"),
                     Content.Load<Texture2D>("Player Textures/redHealthBar"),
-                    new Vector2(6 * config.tileSize, 50 + i * 50), i + 1, screenH, i + 1);
+                    new Vector2(6 * config.tileSize, 50 + i * 50), i + 1, screenH, i + 1, reloadTex);
             }
 
             level1 = new Level(Services, "Level1.txt", "StoneTiles", playerArr);
