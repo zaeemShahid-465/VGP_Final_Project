@@ -13,6 +13,8 @@ Content\Item Textures\MedKit.xnb
 Content\Item Textures\UsingMedKit.xnb
 Content\Gun Textures\bullet.xnb
 Content\Gun Textures\basic.xnb
+Content\Item Textures\ShieldPotion.xnb
+Content\Item Textures\UsingShieldPotion.xnb
 Content\Player Textures\greenHealthBar.xnb
 Content\Player Textures\redHealthBar.xnb
 Content\Gun Textures\AssaultRifle.xnb
@@ -22,9 +24,6 @@ Content\Player Textures\albert.xnb
 Content\Player Textures\felicia.xnb
 Content\Player Textures\joel.xnb
 Content\Player Textures\pedro.xnb
-Content\Item Textures\ShieldPotion.xnb
-Content\Item Textures\UsingShieldPotion.xnb
-Content\level1pic.xnb
 Content\PlayButtonTex.xnb
 Content\PlayGlitched.xnb
 Content\ControlsButton.xnb
@@ -38,11 +37,12 @@ Content\Map2Tex.xnb
 Content\Map3Glitched.xnb
 Content\Map3Tex.xnb
 Content\backButtonTex.xnb
-Content\SpriteFont1.xnb
 Content\GlitchedTitleTex.xnb
 Content\TitleTex.xnb
+Content\level1pic.xnb
 Content\level2pic.xnb
 Content\Movement.xnb
 Content\reload.xnb
+Content\SpriteFont1.xnb
 Content\LevelData\Level1.txt
 Content\LevelData\level2.txt

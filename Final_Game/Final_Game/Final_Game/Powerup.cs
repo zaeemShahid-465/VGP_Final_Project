@@ -63,6 +63,12 @@ namespace Final_Game
                             case 1:
                                 currPlayerIndex = PlayerIndex.Two;
                                 break;
+                            case 2:
+                                currPlayerIndex = PlayerIndex.Three;
+                                break;
+                            case 3:
+                                currPlayerIndex = PlayerIndex.Four;
+                                break;
                         }
                         velocity = new Vector2(-4, 7);
                     }
