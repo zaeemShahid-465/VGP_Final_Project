@@ -107,7 +107,7 @@ namespace Final_Game
                 weaponDespawnTimers.Add(0);
             }
 
-            if (powerUpSpawnTimer % 300 == 0)
+            if (powerUpSpawnTimer % 600 == 0 && powerUps.Count() < 4)
             {
                 int num = rand.Next(2);
                 switch (num)
